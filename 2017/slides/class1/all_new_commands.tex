@@ -1,0 +1,24 @@
+\newcommand{\themename}{\textbf{\textsc{metropolis}}\xspace}
+\newcommand{\vect}[1]{\bm{#1}}
+\newcommand{\myprime}[1]{{#1}^{\prime}}
+\newcommand{\grad}[2]{\nabla_{#1} {#2}}
+\newcommand{\dotp}[2]{{#1}^{\top}{#2}}
+\newcommand{\dotpPright}[2]{{#1}^{\top}\left({#2}\right)}
+\newcommand{\outerp}[2]{\left({#1}\right){#2}^{\top}}
+\newcommand{\Jacobian}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\Vocab}{\mathbb{V}}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+% Quote with author reference at the end
+\let\oldquote\quote
+\let\endoldquote\endquote
+\renewenvironment{quote}[2][]
+  {\if\relax\detokenize{#1}\relax
+     \def\quoteauthor{#2}%
+   \else
+     \def\quoteauthor{#2~---~#1}%
+   \fi
+   \oldquote}
+  {\par\nobreak\smallskip\hfill(\quoteauthor)%
+   \endoldquote\addvspace{\bigskipamount}}
+%-----------------------------------------   
