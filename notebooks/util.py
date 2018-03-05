@@ -28,7 +28,7 @@ def get_hausing_prices_data(N, verbose=True):
     ymean, ysdt, ymax, ymin = np.mean(y), np.std(y), np.max(y), np.min(y)
     if verbose:
         print("\nX shape = {}".format(x.shape))
-        print("\ny shape = {}".format(y.shape))
+        print("\ny shape = {}\n".format(y.shape))
         print("X:\nmean {}, sdt {:.2f}, min {}, max {}".format(xmean,
                                                                xsdt,
                                                                xmax,
