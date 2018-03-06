@@ -31,7 +31,7 @@ $ jupyter notebook
 
 
 ### Guia de atividades
-Cada notebook é auto explicativo. Os alunos devem rodar cada notebook para entender a questão que está sendo tratada, e os exercíos estão claramente indicados no código.
+Cada notebook é auto explicativo. Os alunos devem rodar cada notebook para entender a questão que está sendo tratada, os exercícios estão claramente indicados no código.
 
 
 ### Referências
