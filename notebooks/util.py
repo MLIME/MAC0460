@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def get_hausing_prices_data(N, verbose=True):
+def get_housing_prices_data(N, verbose=True):
     """
     Generates artificial linear data,
     where x = square meter, y = house price
@@ -40,13 +40,31 @@ def get_hausing_prices_data(N, verbose=True):
     return x, y
 
 
+def r_squared(y, y_hat):
+    """
+    Calculate the R^2 value
+
+    :param y: regression targets
+    :type y: np array
+    :param y_hat: prediction
+    :type y_hat: np array
+    :return: r^2 value
+    :rtype: float
+    """
+    y_mean = np.mean(y)
+    ssres = np.sum(np.square(y - y_mean))
+    ssexp = np.sum(np.square(y_hat - y_mean))
+    sstot = ssres + ssexp
+    return 1 - (ssexp / sstot)
+
 def plot_points_regression(x,
                            y,
                            title,
                            xlabel,
                            ylabel,
                            prediction=None,
-                           legend=False):
+                           legend=False,
+                           r_squared=None):
     """
     Plots the data points and the prediction,
     if there is one.
@@ -65,6 +83,8 @@ def plot_points_regression(x,
     :type prediction: np.array
     :param legend: param to control print legends
     :type legend: bool
+    :param r_squared: r^2 value
+    :type r_squared: float
     """
     fig, ax = plt.subplots(1, 1, figsize=(8, 8))
     line1, = ax.plot(x, y, 'bo', label='Real data')
@@ -75,6 +95,11 @@ def plot_points_regression(x,
     ax.set_title(title,
                  fontsize=20,
                  fontweight='bold')
+    if r_squared is not None:
+        bbox_props = dict(boxstyle="square,pad=0.3",
+                          fc="white", ec="black", lw=0.2)
+        t = ax.text(90, 100, "$R^2 ={:.4f}$".format(r_squared),
+                    size=15, bbox=bbox_props)
 
     ax.set_xlabel(xlabel, fontsize=20)
     ax.set_ylabel(ylabel, fontsize=20)
