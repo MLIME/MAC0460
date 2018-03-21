@@ -8,7 +8,7 @@ Maiores informações podem ser encontradas [aqui](https://uspdigital.usp.br/jup
 Na pasta **notebooks** estão os notebooks com material e exercícios para acompanhar o curso.
 
 ### Instalação(Ubuntu / Debian)
-Para  instalar o jupyter basta rodar: 
+Para instalar o jupyter basta rodar:
 
 ```
 $ sudo apt install python3-pip
