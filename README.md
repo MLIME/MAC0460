@@ -11,7 +11,7 @@ Na pasta **notebooks** estão os notebooks com material e exercícios para acomp
 Para instalar o jupyter basta rodar:
 
 ```
-$ sudo apt install python3-pip
+$ sudo apt install python3-pip python3-tk
 $ pip3 install --upgrade pip3
 $ sudo pip3 install jupyter
 ```
