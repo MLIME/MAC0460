@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
 
 
 def get_housing_prices_data(N, verbose=True):
@@ -29,11 +30,11 @@ def get_housing_prices_data(N, verbose=True):
     if verbose:
         print("\nX shape = {}".format(x.shape))
         print("\ny shape = {}\n".format(y.shape))
-        print("X:\nmean {}, sdt {:.2f}, min {}, max {}".format(xmean,
+        print("X:\nmean {}, sdt {:.2f}, max {}, min {}".format(xmean,
                                                                xsdt,
                                                                xmax,
                                                                xmin))
-        print("\ny:\nmean {}, sdt {:.2f}, min {}, max {}".format(ymean,
+        print("\ny:\nmean {}, sdt {:.2f}, max {}, min {}".format(ymean,
                                                                  ysdt,
                                                                  ymax,
                                                                  ymin))
@@ -57,50 +58,19 @@ def r_squared(y, y_hat):
     sstot = ssres + ssexp
     return 1 - (ssexp / sstot)
 
-def plot_points_regression(x,
-                           y,
-                           title,
-                           xlabel,
-                           ylabel,
-                           prediction=None,
-                           legend=False,
-                           r_squared=None):
+    
+def randomize_in_place(list1, list2, init=0):
     """
-    Plots the data points and the prediction,
-    if there is one.
+    Function to randomize two lists in the same way.
 
-    :param x: design matrix
-    :type x: np.array
-    :param y: regression targets
-    :type y: np.array
-    :param title: plot's title
-    :type title: str
-    :param xlabel: x axis label
-    :type xlabel: str
-    :param ylabel: y axis label
-    :type ylabel: str
-    :param prediction: model's prediction
-    :type prediction: np.array
-    :param legend: param to control print legends
-    :type legend: bool
-    :param r_squared: r^2 value
-    :type r_squared: float
+    :param list1: list
+    :type list1: list or np.array
+    :param list2: list
+    :type list2: list or np.array
+    :param init: seed
+    :type init: int
     """
-    fig, ax = plt.subplots(1, 1, figsize=(8, 8))
-    line1, = ax.plot(x, y, 'bo', label='Real data')
-    if prediction is not None:
-        line2, = ax.plot(x, prediction, 'r', label='Predicted data')
-        if legend:
-            plt.legend(handles=[line1, line2], loc=2)
-    ax.set_title(title,
-                 fontsize=20,
-                 fontweight='bold')
-    if r_squared is not None:
-        bbox_props = dict(boxstyle="square,pad=0.3",
-                          fc="white", ec="black", lw=0.2)
-        t = ax.text(90, 100, "$R^2 ={:.4f}$".format(r_squared),
-                    size=15, bbox=bbox_props)
-
-    ax.set_xlabel(xlabel, fontsize=20)
-    ax.set_ylabel(ylabel, fontsize=20)
-    plt.show()
+    np.random.seed(seed=init)
+    np.random.shuffle(list1)
+    np.random.seed(seed=init)
+    np.random.shuffle(list2)
