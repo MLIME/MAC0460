@@ -88,8 +88,11 @@ def plot_cost_function_curve(X,
     ms = np.linspace(w_0 - range_points[0] , w_0 + range_points[0], range_points[0])
     bs = np.linspace(w_1 - range_points[1] , w_1 + range_points[1], range_points[1])
     M, B = np.meshgrid(ms, bs)
-    zs = np.array([cost_function(X, y, w) 
-                   for w in zip(np.ravel(M), np.ravel(B))])
+    MB = np.stack((np.ravel(M), np.ravel(B)), axis=1)
+    size = MB.shape[0] 
+    MB = MB.reshape((size, 2, 1))
+    zs = np.array([cost_function(X, y, MB[i]) 
+                   for i in range(size)])
     Z = zs.reshape(M.shape)
     fig = plt.figure(figsize=(20, 10))
     ax = fig.add_subplot(111, projection='3d')
