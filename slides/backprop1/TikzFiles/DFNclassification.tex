@@ -1,0 +1,27 @@
+\begin{figure}[ht!]
+\centering
+
+\scalebox{1.3}{
+\begin{tikzpicture}[auto]
+
+% operations =============================
+
+% nodes
+\node[textonly] (vectorx) {$\begin{bmatrix}0.34\\ \vdots \\0.06\end{bmatrix}$};
+\node[textonly, above=1pt of vectorx] (x) {$\vect{x}$};
+\node[textonly, below=1pt of vectorx] (dimension1) {{\small$d\times 1$}};
+\node[op, right=30pt of vectorx] (model) {$h(\vect{x}; \vect{\theta})$};
+\node[textonly, right=30pt of model] (vectoryhat) {$\begin{bmatrix}p(y=1| \vect{x};\vect{\theta})\\ \vdots \\p(y=n| \vect{x};\vect{\theta})\end{bmatrix}$};
+\node[textonly, above=1pt of vectoryhat] (yhat) {$\hat{\vect{y}}$};
+\node[textonly, below=1pt of vectoryhat] (dimension2) {{\small$n\times 1$}};
+
+
+
+% edges
+\path[tedge] (vectorx) -- (model);
+\path[tedge] (model) -- (vectoryhat);
+
+
+\end{tikzpicture}
+} % scalebox
+\end{figure}

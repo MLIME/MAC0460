@@ -1,0 +1,29 @@
+\begin{figure}[ht!]
+\centering
+
+\scalebox{1.0}{
+\begin{tikzpicture}
+    \begin{axis}%
+    [
+        grid=major,     
+        xmin=-6,
+        xmax=6,
+        axis x line=bottom,
+        ytick={0},
+        ymax=10,
+        axis y line=middle,
+    ]
+        \addplot%
+        [	orange!180,
+        	ultra thick,
+%             blue,%
+            mark=none,
+            samples=100,
+            domain=-6:6,
+        ]
+        (x,{max(x,0)});
+    \end{axis}
+\node[textonly] (relu) at (8.95,2.8) {{\Large$g(x) = max\{0,x\}$}};
+\end{tikzpicture}
+} % scalebox
+\end{figure}

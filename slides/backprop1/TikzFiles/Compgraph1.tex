@@ -1,0 +1,30 @@
+\begin{figure}[ht!]
+\centering
+
+\scalebox{1.3}{
+\begin{tikzpicture}[auto]
+
+% operations =============================
+
+% nodes
+\node[op] (W1) {$\vect{W}$};
+\node[textonly, below=20pt of W1] (inv1) {};
+\node[op, below=40pt of W1] (x1) {$\vect{x}$};
+\node[op, right=30.5pt of inv1] (v1) {matmul};
+\node[op, right=120pt of W1] (W2) {$\vect{W}$};
+\node[textonly, below=20pt of W2] (inv2) {};
+\node[op, below=40pt of W2] (x2) {$\vect{x}$};
+\node[op, right=30.5pt of inv2] (v2) {$\vect{v}$};
+\node[textonly, left=1.5pt of v2] (matmtul) {matmul};
+\node[textonly, left=40pt of inv2] (inv3) {};
+\node[textonly, below=50.5pt of inv3] (result) {{\large $\vect{v} = \vect{W} \vect{x} $}};
+
+% edges
+\path[tedge] (W1) -- (v1);
+\path[tedge] (x1) -- (v1);
+\path[tedge] (W2) -- (v2);
+\path[tedge] (x2) -- (v2);
+
+\end{tikzpicture}
+} % scalebox
+\end{figure}

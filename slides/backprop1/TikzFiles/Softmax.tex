@@ -1,0 +1,21 @@
+\begin{figure}[ht!]
+\centering
+
+\scalebox{1.3}{
+\begin{tikzpicture}[auto]
+
+% operations =============================
+
+% nodes
+\node[textonly] (logits) {$\begin{bmatrix}3.82\\5.35\\1.44\\-1.26\\2.71 \\1.98\end{bmatrix}$};
+\node[textonly, right=60pt of logits] (softmax) {$\begin{bmatrix}0.16115195\\0.74422819\\0.01491471\\0.00100235\\0.05310907 \\0.02559374\end{bmatrix}$};
+\node[textonly, below=15pt of logits] (inv1) {};
+\node[textonly, right=10pt of inv1] (softmax_eq) {{\Large$softmax(\vect{x})_i = \frac{e^{\vect{x}_i}}{\sum_j e^{\vect{x}_j}}$}};
+
+
+
+% edges
+\path[tedge] (logits) edge node[above=1pt] {{\Large softmax}} (softmax);
+\end{tikzpicture}
+} % scalebox
+\end{figure}

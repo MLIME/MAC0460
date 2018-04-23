@@ -1,0 +1,32 @@
+\begin{figure}[ht!]
+\centering
+
+\scalebox{1.0}{
+\begin{tikzpicture}
+    \begin{axis}%
+    [
+        grid=major,     
+        xmin=0,
+        xmax=1,
+        axis x line=bottom,
+        ytick={0,.5,1},
+        ymax=1.1,
+        axis y line=middle,
+		xlabel= $p$,
+  		ylabel= $H(\vect{p})$,
+    ]
+        \addplot%
+        [	orange!180,
+        	ultra thick,
+%             blue,%
+            mark=none,
+            samples=200,
+            domain=0.0001:0.9999,
+        ]
+        (x,{(x*log2(1/x)) + ((1-x)*log2(1/(1-x)))});
+    \end{axis}
+\node[textonly] (pprob) at (8.75,2.8) {{\Large$\begin{bmatrix}p\\1-p\end{bmatrix}$}};
+\node[textonly, above=1pt of pprob] (p) {{\Large$\vect{p}$}};
+\end{tikzpicture}
+} % scalebox
+\end{figure}

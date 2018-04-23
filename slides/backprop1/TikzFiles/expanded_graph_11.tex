@@ -1,0 +1,94 @@
+\begin{figure}[ht!]
+\centering
+
+\scalebox{0.6}{
+\begin{tikzpicture}[auto]
+
+% operations =============================
+
+% input x and W
+\node[op] (w11) {$w_{11}$};
+\node[op, below=10pt of w11] (x1) {$x_{1}$};
+\node[op, below=20pt of x1] (w12) {$w_{12}$};
+\node[op, below=10pt of w12] (x2) {$x_{2}$};
+
+\node[op, below=20pt of x2] (w21) {$w_{21}$};
+\node[op, below=10pt of w21] (x11) {$x_{1}$};
+\node[op, below=20pt of x11] (w22) {$w_{22}$};
+\node[op, below=10pt of w22] (x22) {$x_{2}$};
+
+% multiplication
+\node[op, below right=1pt and 20pt of w11] (mult1) {$*$};
+\node[op, below right=1pt and 20pt of w12] (mult2) {$*$};
+\node[op, below right=1pt and 20pt of w21] (mult3) {$*$};
+\node[op, below right=1pt and 20pt of w22] (mult4) {$*$};
+
+% sum
+\node[op, below right=25pt and 20pt of mult1] (sum1) {$+$};
+\node[op, below right=25pt and 20pt of mult3] (sum2) {$+$};
+\node[op, right=25pt of sum1] (sum3) {$z_1$};
+\node[op, right=25pt of sum2] (sum4) {$z_2$};
+\node[op, above left=25pt and 10pt of sum3] (b1) {$b_1$};
+\node[op, below left=25pt and 10pt of sum4] (b2) {$b_2$};
+
+% exp
+\node[op, right=25pt of sum3] (exp1) {$h_1$};
+\node[op, right=25pt of sum4] (exp2) {$h_2$};
+\node[op, below right=65pt and 15pt of exp1] (sum5) {$H$};
+\node[op, right=35pt of exp1] (div1) {$\hat{y}_1$};
+\node[op, right=35pt of exp2] (div2) {$\hat{y}_2$};
+
+% log
+\node[op, right=25pt of div1] (log1) {$\log$};
+\node[op, right=25pt of div2] (log2) {$\log$};
+\node[state, right=25pt of log1] (mult5) {$-0.207$};
+\node[state, right=25pt of log2] (mult6) {$0$};
+\node[op, above left=25pt and 10pt of mult5] (y1) {$y_1$};
+\node[op, below left=25pt and 10pt of mult6] (y2) {$y_2$};
+\node[op, below right=65pt and 15pt of mult5] (sum6) {$+$};
+\node[op, right=25pt of sum6] (minus1) {$*-1$};
+
+
+
+%edges
+\path[tedge] (w11) -- (mult1);
+\path[tedge] (x1) -- (mult1);
+\path[tedge] (w12) -- (mult2);
+\path[tedge] (x2) -- (mult2);
+\path[tedge] (w21) -- (mult3);
+\path[tedge] (x11) -- (mult3);
+\path[tedge] (w22) -- (mult4);
+\path[tedge] (x22) -- (mult4);
+
+\path[tedge] (mult1) -- (sum1);
+\path[tedge] (mult2) -- (sum1);
+\path[tedge] (mult3) -- (sum2);
+\path[tedge] (mult4) -- (sum2);
+\path[tedge] (sum1) -- (sum3);
+\path[tedge] (b1) -- (sum3);
+\path[tedge] (sum2) -- (sum4);
+\path[tedge] (b2) -- (sum4);
+
+\path[tedge] (sum3) -- (exp1);
+\path[tedge] (sum4) -- (exp2);
+\path[tedge] (exp1) -- (sum5);
+\path[tedge] (exp2) -- (sum5);
+\path[tedge] (exp1) -- (div1);
+\path[tedge] (exp2) -- (div2);
+\path[tedge] (sum5) -- (div1);
+\path[tedge] (sum5) -- (div2);
+
+
+\path[tedge] (div1) -- (log1);
+\path[tedge] (div2) -- (log2);
+\path[tedge] (log1) -- (mult5);
+\path[tedge] (y1) -- (mult5);
+\path[tedge] (log2) -- (mult6);
+\path[tedge] (y2) -- (mult6);
+\path[tedge] (mult5) -- (sum6);
+\path[tedge] (mult6) -- (sum6);
+\path[tedge] (sum6) -- (minus1);
+
+\end{tikzpicture}
+} % scalebox
+\end{figure}

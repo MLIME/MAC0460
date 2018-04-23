@@ -1,0 +1,36 @@
+\begin{figure}[ht!]
+\centering
+
+\scalebox{1.3}{
+\begin{tikzpicture}[auto]
+
+% operations =============================
+
+% nodes
+\node[textonly] (p1prob) {$\begin{bmatrix}0.8\\0.2\end{bmatrix}$};
+\node[textonly, right=30pt of p1prob] (q1prob) {$\begin{bmatrix}0.5\\0.5\end{bmatrix}$};
+\node[textonly, above=1pt of p1prob] (p1) {$\vect{p}$};
+\node[textonly, above=1pt of q1prob] (q1) {$\vect{q}$};
+\node[textonly, right=20pt of q1prob] (p2prob) {$\begin{bmatrix}0.8\\0.2\end{bmatrix}$};
+\node[textonly, right=30pt of p2prob] (q2prob) {$\begin{bmatrix}0.88\\0.12\end{bmatrix}$};
+\node[textonly, above=1pt of p2prob] (p2) {$\vect{p}^{\prime}$};
+\node[textonly, above=1pt of q2prob] (q2) {$\vect{q}^{\prime}$};
+
+
+\node[textonly, below right=20pt and -15pt of p1prob] (Dkl1) {$D_{KL}(\vect{p}||\vect{q}) = 0.28$};
+\node[textonly, below right=20pt and -15pt of p2prob] (Dkl2) {$D_{KL}(\vect{p}^{\prime}||\vect{q}^{\prime}) = 0.04$};
+\node[textonly, below=20pt of Dkl1] (inv1) {};
+\node[textonly,  right=-40pt of inv1] (Dklequation) {{\Large$D_{KL}(\vect{p}||\vect{q}) = \sum_{i} \vect{p}_i\log\frac{\vect{p}_i}{\vect{q}_i}$}};
+
+
+
+% edges
+\draw[orange!120, line width=1mm]  (Dkl1) to [out=150,in=-90] (p1prob);
+\draw[orange!120, line width=1mm] (Dkl1) to [out=150,in=-100] (q1prob);
+
+\draw[orange!120, line width=1mm]  (Dkl2) to [out=150,in=-90] (p2prob);
+\draw[orange!120, line width=1mm] (Dkl2) to [out=150,in=-100] (q2prob);
+
+\end{tikzpicture}
+} % scalebox
+\end{figure}

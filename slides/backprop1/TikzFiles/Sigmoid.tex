@@ -1,0 +1,29 @@
+\begin{figure}[ht!]
+\centering
+
+\scalebox{1.0}{
+\begin{tikzpicture}
+    \begin{axis}%
+    [
+        grid=major,     
+        xmin=-6,
+        xmax=6,
+        axis x line=bottom,
+        ytick={0,.5,1},
+        ymax=1,
+        axis y line=middle,
+    ]
+        \addplot%
+        [	orange!180,
+        	ultra thick,
+%             blue,%
+            mark=none,
+            samples=100,
+            domain=-6:6,
+        ]
+        (x,{1/(1+exp(-x))});
+    \end{axis}
+\node[textonly] (sigmoid) at (8.75,2.8) {{\Large$\sigma(x) = \frac{1}{1 + e^{-x}}$}};
+\end{tikzpicture}
+} % scalebox
+\end{figure}

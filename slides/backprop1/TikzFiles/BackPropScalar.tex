@@ -1,0 +1,36 @@
+\begin{figure}[ht!]
+\centering
+
+\scalebox{1.5}{
+\begin{tikzpicture}[auto]
+
+% operations =============================
+\node[op] (y) {y};
+\node[op, above=30pt of y] (z) {z};
+\node[op, below=30pt of y] (x) {x};
+
+% gradients =============================
+\visible<2->{\node[gradient, right=50pt of z] (delzdely) {$\frac{dz}{dy}$};}
+\visible<2->{\node[textonly, right=0.1pt of delzdely] {$=\frac{1}{x^{2}}$};}
+\visible<3->{\node[gradient, right=50pt of y] (delydelx) {$\frac{dy}{dx}$};}
+\visible<3->{\node[textonly, right=0.1pt of delydelx] {$=2x$};}
+\visible<4->{\node[gradient, right=80pt of x] (delzdelx) {$\frac{dz}{dx}$};}
+\visible<4->{\node[textonly, right=0.1pt of delzdelx] {$=\frac{2}{x}$};}
+
+
+% edges
+\path[tedge] (x) -- (y);
+\path[tedge] (y) -- (z);
+\visible<2->{\path[tedge] (z) -- (delzdely);}
+\visible<3->{\path[tedge] (y) -- (delydelx);}
+\visible<4->{\path[tedge] (x) -- (delzdelx);}
+\visible<4->{\path[tedge] (delydelx) -- (delzdelx);}
+\visible<4->{\path[tedge] (delzdely) to [bend right, out=-310, in=100, distance=40pt] (delzdelx);}
+
+
+% \visible<2->{\node[gradient, left=20pt of V] (grad-V) {$\nabla_{\textbf{V}}\textbf{L}$};}
+
+
+\end{tikzpicture}
+} % scalebox
+\end{figure}

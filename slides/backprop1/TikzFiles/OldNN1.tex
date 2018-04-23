@@ -1,0 +1,120 @@
+\begin{figure}[ht!]
+\centering
+
+\scalebox{0.7}{
+\begin{tikzpicture}[auto]
+
+% operations =============================
+
+% input layer
+\node[op] (x5) {$x_5$};
+\node[op, above=2.5pt of x5] (x4) {$x_4$};
+\node[op, above=2.5pt of x4] (x3) {$x_3$};
+\node[op, above=2.5pt of x3] (x2) {$x_2$};
+\node[op, above=2.5pt of x2] (x1) {$x_1$};
+\node[op, below=2.5pt of x5] (x6) {$x_6$};
+\node[op, below=2.5pt of x6] (x7) {$x_7$};
+\node[op, below=2.5pt of x7] (x8) {$x_8$};
+\node[op, below=2.5pt of x8] (x9) {$x_9$};
+\node[op, below=2.5pt of x9] (x10) {$x_{10}$};
+
+% hidden layer
+\node[op,  right=130pt of x5] (v2) {$v_2$};
+\node[op, below=2.5pt of v2] (v3) {$v_3$};
+\node[op, below=2.5pt of v3] (v4) {$v_4$};
+\node[op, above=2.5pt of v2] (v1) {$v_1$};
+
+\node[op,  right=40pt of v2] (h2) {$h_2$};
+\node[op, below=2.5pt of h2] (h3) {$h_3$};
+\node[op, below=2.5pt of h3] (h4) {$h_4$};
+\node[op, above=2.5pt of h2] (h1) {$h_1$};
+
+
+% output layer
+\node[op,  right=60pt of h2] (z1) {$z_1$};
+\node[op,  right=60pt of h3] (z2) {$z_2$};
+
+\node[op,  right=50pt of z1] (y1) {$\hat{y}_1$};
+\node[op,  right=50pt of z2] (y2) {$\hat{y}_2$};
+
+
+% edges input layer to hidden
+\path[tedge] (x1) -- (v1);
+\path[tedge] (x1) -- (v2);
+\path[tedge] (x1) -- (v3);
+\path[tedge] (x1) -- (v4);
+
+\path[tedge] (x2) -- (v1);
+\path[tedge] (x2) -- (v2);
+\path[tedge] (x2) -- (v3);
+\path[tedge] (x2) -- (v4);
+
+\path[tedge] (x3) -- (v1);
+\path[tedge] (x3) -- (v2);
+\path[tedge] (x3) -- (v3);
+\path[tedge] (x3) -- (v4);
+
+\path[tedge] (x4) -- (v1);
+\path[tedge] (x4) -- (v2);
+\path[tedge] (x4) -- (v3);
+\path[tedge] (x4) -- (v4);
+
+\path[tedge] (x5) -- (v1);
+\path[tedge] (x5) -- (v2);
+\path[tedge] (x5) -- (v3);
+\path[tedge] (x5) -- (v4);
+
+\path[tedge] (x6) -- (v1);
+\path[tedge] (x6) -- (v2);
+\path[tedge] (x6) -- (v3);
+\path[tedge] (x6) -- (v4);
+
+\path[tedge] (x7) -- (v1);
+\path[tedge] (x7) -- (v2);
+\path[tedge] (x7) -- (v3);
+\path[tedge] (x7) -- (v4);
+
+\path[tedge] (x8) -- (v1);
+\path[tedge] (x8) -- (v2);
+\path[tedge] (x8) -- (v3);
+\path[tedge] (x8) -- (v4);
+
+\path[tedge] (x9) -- (v1);
+\path[tedge] (x9) -- (v2);
+\path[tedge] (x9) -- (v3);
+\path[tedge] (x9) -- (v4);
+
+\path[tedge] (x10) -- (v1);
+\path[tedge] (x10) -- (v2);
+\path[tedge] (x10) -- (v3);
+\path[tedge] (x10) -- (v4);
+
+% edges hidden to hidden
+\path[tedge] (v1) edge node[above=1pt] {{\Large$\sigma$}}  (h1) ;
+\path[tedge] (v2) edge node[above=1pt] {{\Large$\sigma$}}  (h2) ;
+\path[tedge] (v3) edge node[above=1pt] {{\Large$\sigma$}}  (h3) ;
+\path[tedge] (v4) edge node[above=1pt] {{\Large$\sigma$}}  (h4) ;
+
+% edges hidden to output
+\path[tedge] (h1) -- (z1);
+\path[tedge] (h1) -- (z2);
+
+\path[tedge] (h2) -- (z1);
+\path[tedge] (h2) -- (z2);
+
+\path[tedge] (h3) -- (z1);
+\path[tedge] (h3) -- (z2);
+
+\path[tedge] (h4) -- (z1);
+\path[tedge] (h4) -- (z2);
+
+% edges output to output
+\path[tedge] (z1) edge node[above=1pt] {{\Large softmax}}  (y1) ;
+\path[tedge] (z2) edge node[above=1pt] {{\Large softmax}}  (y2) ;
+
+
+
+
+\end{tikzpicture}
+} % scalebox
+\end{figure}

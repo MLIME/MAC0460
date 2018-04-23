@@ -1,0 +1,74 @@
+\begin{figure}[ht!]
+\centering
+
+\scalebox{0.7}{
+\begin{tikzpicture}[auto]
+
+% operations =============================
+
+% input x and W
+\node[op] (w1) {$w_{1}$};
+\node[op, below=10pt of w1] (x1) {$x_{1}$};
+\node[op, below=20pt of x1] (w2) {$w_{2}$};
+\node[op, below=10pt of w2] (x2) {$x_{2}$};
+
+% multiplication
+\node[op, below right=1pt and 40pt of w1] (mult1) {$*$};
+\node[op, below right=1pt and 40pt of w2] (mult2) {$*$};
+% sum
+\node[op, below right=25pt and 20pt of mult1] (sum1) {$+$};
+\node[op, right=65pt of sum1] (sum2) {$+$};
+\node[op, below=35pt of sum2] (minus) {$-1$};
+\node[op, left=25pt of minus] (y) {$y$};
+\node[op, right=45pt of sum2] (squ) {$squ$};
+
+
+
+%gradients 1
+\visible<3->{\node[gradient, above=10pt of sum2] (dsum2) {$2(\hat{y} - y)$};}
+\visible<5->{\node[gradient, above=10pt of sum1] (dsum1) {$1$};}
+\visible<7->{\node[gradient, above=10pt of mult1] (dmult1) {$1$};}
+\visible<9->{\node[gradient, above=10pt of w1] (dw1) {$x_1$};}
+
+%gradients 2
+\visible<2->{\node[gradient2, above=35pt of squ] (dLdL) {$1$};}
+\visible<4->{\node[gradient2, above right=35pt and 15pt of dsum2] (dLdLpp) {$2(\hat{y} - y)$};}
+\visible<6->{\node[gradient2, above left=35pt and 15pt of dsum2] (dLdsum2) {$2(\hat{y} - y)$};}
+\visible<8->{\node[gradient2, above left=10pt and 25pt of dLdsum2] (dLdmult1) {$2(\hat{y} - y)$};}
+\visible<10->{\node[gradient2, left=25pt of dLdmult1] (dLdw1) {$2(\hat{y} - y)x_1$};}
+
+
+
+
+%edges
+\path[tedge] (w1) -- (mult1);
+\path[tedge] (x1) -- (mult1);
+\path[tedge] (w2) -- (mult2);
+\path[tedge] (x2) -- (mult2);
+
+\path[tedge] (mult1) -- (sum1);
+\path[tedge] (mult2) -- (sum1);
+\path[tedge] (sum1) -- (sum2);
+\path[tedge] (y) -- (minus);
+\path[tedge] (minus) -- (sum2);
+\path[tedge] (sum2) -- (squ);
+
+\visible<4->{\path[tedge] (dLdL) -- (dLdLpp);}
+\visible<4->{\path[tedge] (dsum2) -- (dLdLpp);}
+\visible<3->{\path[tedge] (sum2) -- (dsum2);}
+\visible<6->{\path[tedge] (dLdLpp) -- (dLdsum2);}
+
+% \visible<4->{\path[tedge] (dsum2) -- (dLdsum2);}
+\visible<6->{\path[tedge] (dsum1) -- (dLdsum2);}
+\visible<8->{\path[tedge] (dLdsum2) -- (dLdmult1);}
+\visible<8->{\path[tedge] (dmult1) -- (dLdmult1);}
+\visible<10->{\path[tedge] (dLdmult1) -- (dLdw1);}
+\visible<10->{\path[tedge] (dw1) -- (dLdw1);}
+
+
+\end{tikzpicture}
+} % scalebox
+\end{figure}
+
+
+

@@ -1,0 +1,19 @@
+\begin{figure}[ht!]
+\centering
+
+\scalebox{1.5}{
+\begin{tikzpicture}[auto]
+
+% operations =============================
+\node[op] (times) {$*-1$};
+\node[op, left=20pt of times] (a) {$a$};
+\node[gradient, above=30pt of a] (da) {$\frac{\partial f}{\partial a}$};
+\node[textonly, right=0.1pt of da] {$=-1$};
+\node[textonly, right=0.1pt of times] {$=f(a) =-a$};
+
+% edges
+\path[tedge] (a) -- (times);
+
+\end{tikzpicture}
+} % scalebox
+\end{figure}

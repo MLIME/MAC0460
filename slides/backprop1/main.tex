@@ -1,0 +1,517 @@
+\documentclass[10pt]{beamer}
+\usetheme{metropolis}
+% all imports
+\input{all_imports}
+
+\AtBeginEnvironment{quote}{\singlespacing}
+
+% new commands
+\input{all_new_commands}
+
+% definitions
+\input{definitions/colors}
+\input{definitions/styles}
+
+\input{header}
+
+\begin{document}
+\nocite{DeepLearningbook}
+
+\maketitle
+
+\section{Revisão: regressão logística}
+
+\begin{frame}{O problema de classificação}
+
+\begin{itemize}
+\item [] Em vários casos a função desconhecida $f:\mathbb{R}^{d} \rightarrow \mathbb{R}$ que queremos aproximar é uma \textbf{distribuição de probabilidade}.
+\vspace{0.3cm}
+\item[] Temos um vetor $\vect{x}$ e queremos saber a qual das classes $k_1, \dots, k_n$ ele pertence. Um modo de formular esse problema como um problema de apreendizado supervisionado é coletar um conjunto de dados $(\vect{x}_{1}, y_{1}), \dots ,(\vect{x}_{N}, y_{N})$ onde $y_i \in \{k_1, \dots, k_n\}$ e tentar estimar $p(y  | \vect{x})$ por meio de uma família de modelos $p(y | \vect{x}; \vect{\theta})$.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Classificação com duas classes}
+Quando $y$ é uma variável binária definimos o modelo $p(y | \vect{x}; \vect{\theta})$ do seguinte modo:
+\Large{
+\begin{align*}
+\hat{y} &= p(y=1| \vect{x}; \vect{\theta})\\
+&= h(\vect{x}; \vect{\theta}) \\
+&= \sigma(z)\\
+\end{align*}
+}
+em que 
+\begin{equation*}
+z = \dotp{\vect{w}}{\vect{x}} + b
+\end{equation*}
+
+\end{frame}
+
+\begin{frame}[fragile]{Revisão: função sigmoide}
+\input{TikzFiles/Sigmoid}
+\end{frame}
+
+\begin{frame}{Classificação}
+\input{TikzFiles/DFNclassification2}
+\end{frame}
+
+\begin{frame}{Classificação para várias classes}
+E quando $y$ é uma variável com $n$ valores definimos $p(y | \vect{x}; \vect{\theta})$ do seguinte modo:
+\Large{
+\begin{align*}
+\hat{\vect{y}} &= p(y| \vect{x}; \vect{\theta})\\
+&= h(\vect{x}; \vect{\theta}) \\
+&= softmax(\vect{z})\\
+\end{align*}
+}
+em que 
+\begin{equation*}
+\vect{z} = \vect{W}\vect{x} + \vect{b}
+\end{equation*}
+
+\end{frame}
+
+\begin{frame}[fragile]{Revisão: função softmax}
+\input{TikzFiles/Softmax}
+\end{frame}
+
+\begin{frame}{Classificação}
+\input{TikzFiles/DFNclassification}
+\end{frame}
+
+
+\begin{frame}{Princípio da máxima verossimilhança}
+Os parâmetros $\vect{\theta}$ vão ser adaptados de modo que  $p(y| \vect{x};\vect{\theta})$ seja a distribuição mais adequada para os dados
+\begin{equation*}
+(\vect{x}^{(1)},y^{(1)}), \dots, (\vect{x}^{(N)},y^{(N)})
+\end{equation*}
+\end{frame}
+
+\begin{frame}{Classificação}
+A função que queremos maximizar é
+\Large{
+\begin{align*}
+\mathcal{L}(\vect{\theta}) &= \E_{\vect{x},y \sim p_{data}} \log p(y| \vect{x}; \vect{\theta})\\
+&= \frac{1}{N}\sum_{i=1}^{N}\log p(y^{(i)}| \vect{x}^{(i)}; \vect{\theta})\\
+\end{align*}
+}
+\end{frame}
+
+\begin{frame}{Revisão: entropia}
+\input{TikzFiles/Entropy1}
+\end{frame}
+
+\begin{frame}{Revisão: entropia}
+\input{TikzFiles/Entropy2}
+\end{frame}
+
+\begin{frame}{Revisão: divergência Kullback-Leibler}
+\input{TikzFiles/KullbackLeibler}
+\end{frame}
+
+\begin{frame}{Revisão: entropia cruzada}
+\Large{
+\begin{align*}
+CE(\vect{p},\vect{q}) &= H(\vect{p}) + D_{KL}(\vect{p}||\vect{q})\\
+\vspace{0.2cm}
+&= -\sum_{i}\vect{p}_{i}\log(\vect{q}_{i})
+\end{align*}
+}
+\vspace{0.2cm}
+\begin{equation*}
+\argmin_{\vect{q}} CE(\vect{p},\vect{q}) =  \argmin_{\vect{q}} D_{KL}(\vect{p},\vect{q})
+\end{equation*}
+\end{frame}
+
+\begin{frame}[fragile]{Entropia cruzada e verossimilhança}
+
+Assumindo que $\vect{y}$ é one-hot temos que: 
+
+\Large{
+\begin{align*}
+L(\vect{y}^{(i)}, {\hat{\vect{y}}}^{(i)}) &= CE(\vect{y}^{(i)}, {\hat{\vect{y}}}^{(i)})\\
+&= -\sum_{k=1}^{n} \vect{y}^{(i)}_{k}\log p(y=k| \vect{x}^{(i)}; \vect{\theta})\\
+&= - \log p(y^{(i)}| \vect{x}^{(i)}; \vect{\theta})\\
+\end{align*}
+}
+\end{frame}
+
+\begin{frame}{Entropia cruzada e verossimilhança}
+E a função que queremos minimizar é
+\Large{
+\begin{align*}
+J(\vect{\theta}) &= \frac{1}{N}\sum_{i=1}^{N} L(\vect{y}^{(i)}, {\hat{\vect{y}}}^{(i)})\\
+&= - \frac{1}{N}\sum_{i=1}^{N}\log p(y^{(i)}| \vect{x}^{(i)}; \vect{\theta})\\
+&= - \mathcal{L}(\vect{\theta})
+\end{align*}
+
+\vspace{0.2cm}
+\begin{equation*}
+\argmax_{\vect{\theta}} \mathcal{L}(\vect{\theta}) =  \argmin_{\vect{\theta}} J(\vect{\theta})
+\end{equation*}
+}
+\end{frame}
+
+\begin{frame}{Treinando um modelo}
+\Large{
+\begin{itemize}
+\item $\hat{\vect{y}} = f(\vect{x}; \vect{\theta})$ 
+\item $J(\vect{\theta}) =  \frac{1}{m}\sum_{i=1}^{m} L(\vect{y}^{(i)}, {\hat{\vect{y}}}^{(i)})$ 
+\item \text{algum algoritmo de otimização (e.g., \textbf{SGD})}:
+\begin{equation*}
+\vect{\theta}^{novo}  \leftarrow \vect{\theta}^{velho} - \eta \grad{\vect{\theta}}{J(\vect{\theta})}
+\end{equation*}
+\vspace{0.3cm}
+\end{itemize}
+}
+
+Vamos ver como computar $\grad{\vect{\theta}}{J(\vect{\theta})}$ de modo eficiente para uma função arbitrária $J$.
+
+\end{frame}
+
+\section{Grafo de computação (caso escalar)}
+
+\begin{frame}{Grafo de computação}
+
+Considere os seguintes  conjuntos de funções:
+\Large{
+\begin{itemize}
+\item $OP_1 = \{ \lambda x. -x, \lambda x. x^2,  \lambda x. e^x, \lambda x. log(x), \lambda x. x \}$
+\item $OP_2 = \{ \lambda xy. x + y, \lambda  xy. x * y, \lambda xy. \frac{x}{y} \}$
+\item $OP = OP_1 \cup OP_2$
+\end{itemize}
+}
+\end{frame}
+
+\begin{frame}{Grafo de computação}
+Um grafo de computação definido em $OP$ $\mathcal{G} = (\mathcal{V}, \mathcal{E}_1, \mathcal{E}_2)$ é um grafo acíclico dirigido (DAG) tal que cada elemento $u \in \mathcal{V}$ indica uma variável, se $(x,y) \in \mathcal{E}_1$ então $f(x)=y$ onde $f \in OP_1 \cup \{g(x,\alpha) | \alpha \in \mathbb{R} , g \in OP_2\}$, e se $(x,y) \in \mathcal{E}_2$ então $f(x)=y$ onde $f \in \{g(\alpha, x) | \alpha \in \mathbb{R} , g \in OP_2\}$.
+
+\vspace{0.3cm}
+\begin{itemize}
+\item $Pa(x) = \{y \in \mathcal{V} | (y,x) \in \mathcal{E}_1 \cup \mathcal{E}_2 \}$.
+\item $S(x) = \{y \in \mathcal{V} | (x,y) \in \mathcal{E}_1 \cup \mathcal{E}_2 \}$.
+\end{itemize} 
+
+\end{frame}
+
+
+\begin{frame}{Grafo de computação}
+
+\input{TikzFiles/simple_example0}
+\Large{
+\begin{itemize}
+\item $y  = x^2$
+\item $u = e^{y}$
+\end{itemize}
+}
+\end{frame}
+
+\begin{frame}{Grafo de computação}
+
+\input{TikzFiles/simple_example}
+\Large{
+\begin{itemize}
+\item $z  = x + y$
+\item $u = \log(z)$
+\end{itemize}
+}
+
+\end{frame}
+
+\begin{frame}{Grafo de computação}
+\Large{
+Queremos representar uma função $L$ por um grafo definido em $OP$ pois as derivadas parciais das funções de $OP$ são simples de calcular. E com a \alert{a regra da cadeia} podemos combinar as derivadas das funções locais para obter a derivada parcial de $L$ com respeito a quaisquer parâmetros.
+}
+\end{frame}
+
+\begin{frame}{Grafo de computação}
+\Large{
+Como todas as funções em $OP$ são diferenciáveis, podemos extender $\mathcal{G}$ em $\mathcal{G}^{\prime}$ adicionando todas as derivadas parciais dos filhos em relação aos pais junto com as respectivas dependências. 
+}
+\end{frame}
+
+
+\begin{frame}{Extendendo o grafo de operações básicas: soma}
+\input{TikzFiles/soma}
+\end{frame}
+
+\begin{frame}{Extendendo o grafo de operações básicas: multiplicação}
+\input{TikzFiles/mult}
+\end{frame}
+
+\begin{frame}{Extendendo o grafo de operações básicas: divisão}
+\input{TikzFiles/div}
+\end{frame}
+
+\begin{frame}{Extendendo o grafo de operações básicas: negativo}
+\input{TikzFiles/minus1}
+\end{frame}
+
+\begin{frame}{Extendendo o grafo de operações básicas: exponenciação}
+\input{TikzFiles/exp}
+\end{frame}
+
+\begin{frame}{Extendendo o grafo de operações básicas: logarítimo}
+\input{TikzFiles/log}
+\end{frame}
+
+\begin{frame}{Extendendo o grafo de operações básicas: ao quadrado}
+\input{TikzFiles/squ}
+\end{frame}
+
+
+\begin{frame}{Regra da cadeia}
+\Large{
+\begin{itemize}
+\item $f:\mathbb{R} \rightarrow\mathbb{R}$, $g:\mathbb{R} \rightarrow\mathbb{R}$. 
+\item $y = g(x)$
+\item $u = f(g(x)) = f(y)$
+
+\end{itemize}
+
+\input{TikzFiles/simple_exampleCR}
+
+\[
+\frac{\partial u}{\partial x} = \frac{\partial u}{\partial y} \frac{\partial y}{\partial x} 
+\]
+}
+\end{frame}
+
+\begin{frame}{Aplicando a regra da cadeia}
+\input{TikzFiles/chain_rule_nodes}
+\Large{
+\begin{itemize}
+\item $\frac{\partial u_{n}}{\partial u_{j}} = \frac{\partial u_{n}}{\partial u_{j+1}} \frac{\partial u_{j+1}}{\partial u_{j}}$
+\end{itemize}
+}
+
+\end{frame}
+
+\begin{frame}{Exemplo 1: regressão linear}
+\Large{
+\begin{align*}
+J(\vect{w}) & = \frac{1}{N}\sum_{i=1}^{N}L(y_{i}, \hat{y}_{i})\\
+            & = \frac{1}{N}\sum_{i=1}^{N}(\hat{y}_{i} - y_{i})^{2}\\
+            & = \frac{1}{N}\sum_{i=1}^{N}(\vect{w}^\top\vect{x}_{i} - y_{i})^{2}\\
+\end{align*}
+}
+\end{frame}
+
+\begin{frame}{Simplificação}
+\Large{
+\begin{itemize}
+\item $\vect{w} = \begin{bmatrix}w_{1}  \\ w_{2}\end{bmatrix}$
+
+\vspace{0.8cm}
+
+\item $\vect{x} = \begin{bmatrix}x_1 \\ x_2\end{bmatrix}$ 
+
+\end{itemize}
+}
+\end{frame}
+
+
+
+\begin{frame}{Grafo de $L(\hat{y}, y)$}
+\input{TikzFiles/lr_graph}
+\end{frame}
+
+
+\begin{frame}{Caminho de $w_1$}
+\input{TikzFiles/lr_graph1}
+\end{frame}
+
+\begin{frame}{Derivade de $L$ em relação a $w_1$}
+\input{TikzFiles/lr_graph_grad}
+\end{frame}
+
+
+\begin{frame}{Regra da cadeia para várias variáveis}
+\Large{
+\begin{itemize}
+\item $z = f(x,y)$
+\item $x = f_{1}(a)$. 
+\item $y = f_{2}(a)$
+\end{itemize}
+\[
+\frac{\partial z}{ \partial a} = \frac{\partial z}{\partial x} \frac{\partial x}{\partial a} + \frac{\partial z}{\partial y} \frac{\partial y}{\partial a} 
+\]
+}
+\end{frame}
+
+
+\begin{frame}{Exemplo}
+\input{TikzFiles/multiple_paths}
+\end{frame}
+
+\begin{frame}{Exemplo 2: regressão logística}
+\Large{
+\begin{equation*}
+\hat{\vect{y}} = softmax(\vect{W}\vect{x} + \vect{b})
+\end{equation*}
+\begin{equation*}
+L(\vect{y},\hat{\vect{y}}) = CE(\vect{y},\hat{\vect{y}})
+\end{equation*}
+
+
+\begin{equation*}
+L(\vect{y},\hat{\vect{y}}) = - \sum_{i}\vect{y}_{i} \log \left(\frac{exp(\sum_{k} \vect{W}_{i,k}\vect{x}_{k} + \vect{b}_{i})}{\sum_{j}exp(\sum_{k}\vect{W}_{j,k}\vect{x}_{k} + \vect{b}_{j})} \right)
+\end{equation*}
+}
+\end{frame}
+
+\begin{frame}{Simplificação}
+\Large{
+\begin{itemize}
+\item $\begin{bmatrix}z_1\\z_2\end{bmatrix} = \begin{bmatrix}w_{11}  & w_{12}\\w_{21}  & w_{22}\end{bmatrix}* \begin{bmatrix}x_1\\x_2\end{bmatrix} + \begin{bmatrix}b_1\\b_2\end{bmatrix}$
+
+\vspace{0.4cm}
+
+\item $\begin{bmatrix}h_1\\h_2\end{bmatrix} = \begin{bmatrix}exp(z_1)\\exp(z_2)\end{bmatrix}$ 
+
+\vspace{0.4cm}
+
+\item $H = h_1 + h_2$ 
+
+\vspace{0.4cm}
+
+\item $\begin{bmatrix}\hat{y}_1\\\hat{y}_2\end{bmatrix} = \begin{bmatrix}\frac{h_1}{H}\\\frac{h_2}{H}\end{bmatrix}$ 
+\end{itemize}
+}
+\end{frame}
+
+
+
+\begin{frame}{Grafo de $L(\hat{\vect{y}}, \vect{y})$}
+\input{TikzFiles/expanded_graph_0}
+\end{frame}
+
+\begin{frame}{Caminho de $b_1$: 1}
+\input{TikzFiles/b1_path1}
+\end{frame}
+
+\begin{frame}{Caminho de $b_1$: 2}
+\input{TikzFiles/b1_path2}
+\end{frame}
+
+\begin{frame}{Caminho de $b_1$: 3}
+\input{TikzFiles/b1_path3}
+\end{frame}
+
+\begin{frame}{Derivada parcial de L com respeito a $b_1$: 1}
+\input{TikzFiles/b1_path1_grad}
+\end{frame}
+
+\begin{frame}{Derivada parcial de L com respeito a $b_1$: 2}
+\input{TikzFiles/b1_path2_grad}
+\end{frame}
+
+\begin{frame}{Derivada parcial de L com respeito a $b_1$: 3}
+\input{TikzFiles/b1_path3_grad}
+\end{frame}
+
+\begin{frame}{Derivada parcial de L com respeito a $b_1$}
+\Large{
+\begin{align*}
+\frac{\partial L}{\partial b_1} &= -y_1 + y_1\frac{h_1}{H} + y_2\frac{h_1}{H}\\
+\vspace{0.2cm}
+\visible<2->{&= y_1\left(\frac{h_1}{H} -1\right) + y_2\left(\frac{h_1}{H} -0\right)\\}
+\visible<3->{&= y_1\left(\hat{y}_1 -1\right) + y_2\left(\hat{y}_1 -0\right)\\}
+\visible<4->{&= \hat{y}_1 - y_1 \;\;\;\; \text{(quando} \;\; y \;\; \text{é um vetor one-hot)}}
+\end{align*}
+}
+\end{frame}
+
+\begin{frame}{Exemplo}
+\input{TikzFiles/examples_values}
+\end{frame}
+
+\begin{frame}{Forward}
+\input{TikzFiles/expanded_graph_0}
+\end{frame}
+
+\begin{frame}{Forward}
+\input{TikzFiles/expanded_graph_1}
+\end{frame}
+
+\begin{frame}{Forward}
+\input{TikzFiles/expanded_graph_2}
+\end{frame}
+
+\begin{frame}{Forward}
+\input{TikzFiles/expanded_graph_3}
+\end{frame}
+
+\begin{frame}{Forward}
+\input{TikzFiles/expanded_graph_4}
+\end{frame}
+
+\begin{frame}{Forward}
+\input{TikzFiles/expanded_graph_5}
+\end{frame}
+
+\begin{frame}{Forward}
+\input{TikzFiles/expanded_graph_6}
+\end{frame}
+
+\begin{frame}{Forward}
+\input{TikzFiles/expanded_graph_7}
+\end{frame}
+
+\begin{frame}{Forward}
+\input{TikzFiles/expanded_graph_8}
+\end{frame}
+
+\begin{frame}{Forward}
+\input{TikzFiles/expanded_graph_9}
+\end{frame}
+
+\begin{frame}{Forward}
+\input{TikzFiles/expanded_graph_10}
+\end{frame}
+
+\begin{frame}{Forward}
+\input{TikzFiles/expanded_graph_11}
+\end{frame}
+
+\begin{frame}{Forward}
+\input{TikzFiles/expanded_graph_12}
+\end{frame}
+
+\begin{frame}{Forward}
+\input{TikzFiles/expanded_graph_13}
+\end{frame}
+
+\begin{frame}{Backward}
+\input{TikzFiles/expanded_graph_14}
+\end{frame}
+
+
+\begin{frame}{Algoritmo de back-propagation (caso escalar)}
+\begin{algorithm}[H]
+\begin{algorithmic}[1]
+\STATE \textbf{Require:} Computational graph $\mathcal{G} = (\{ u_1, \dots, u_n \}, \mathcal{E}_1, \mathcal{E}_2)$, where $u_n$ is a leaf node.
+\STATE Initialize $grad\_table$, a data structure that will store the derivatives that have been computed (at the end $grad\_table[u_i] = \frac{\partial u_n}{\partial u_i}$).
+\STATE $grad\_table[u_n] \leftarrow 1$
+\FOR{$j=n-1$ down to $1$}
+\STATE $grad\_table[u_j] \leftarrow \sum_{u_{i} \in S(u_{j})}grad\_table[u_i]\frac{\partial u_i}{\partial u_j}$
+\ENDFOR
+\RETURN $grad\_table$
+\end{algorithmic}
+\caption{Back-propagation (scalar case)}
+\label{alg:seq}
+\end{algorithm}
+\end{frame}
+
+
+\begin{frame}[allowframebreaks]{Referências}
+
+  \bibliography{my_references}
+  \bibliographystyle{abbrv}
+
+\end{frame}
+
+
+
+
+\end{document}

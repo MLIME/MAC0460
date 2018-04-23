@@ -1,0 +1,62 @@
+\begin{figure}[ht!]
+\centering
+
+\scalebox{1.2}{
+\begin{tikzpicture}[auto]
+
+% operations =============================
+
+% nodes on the left
+\node[op] (W1) {$\vect{W}_{1}$};
+\node[textonly, below=20pt of W1] (inv1) {};
+\node[op, right=30pt of inv1] (v) {$\vect{v}$};
+\node[op, below right=30.5pt of v] (x) {$\vect{x}$};
+\node[op, above=30.5pt of v] (hprime) {$\vect{h}^{\prime}$};
+\node[textonly, above right=2pt of hprime] (h) {{\LARGE$\vect{h}$}};
+
+
+%% namedscope in the left
+\begin{scope}[on background layer]
+\coordinate (p1) at (hprime.north);
+\coordinate (p2) at (v.south east);
+\coordinate (p3) at (W1.west);
+\tkzCircumCenter(p1,p2,p3)
+\tkzGetPoint{O}
+\tkzDrawCircle[draw=orange, line width=1.5pt, fill=orange!60](O,p1)
+\end{scope}
+
+% edges on the left
+\path[tedge] (W1) -- (v);
+\path[tedge] (x) -- (v);
+\path[tedge] (v) -- (hprime);
+
+% nodes on the right
+\node[op, right=30pt of x] (hh) {$\vect{h}$};
+\node[op, above right=30.5pt of hh] (z) {$\vect{z}$};
+\node[op, above=30.5pt of z] (yprime) {$\vect{y}^{\prime}$};
+\node[textonly, right=30pt of z] (inv2) {};
+\node[op, above=20pt of inv2] (W2) {$\vect{W}_{2}$};
+\node[textonly, above left=1pt of yprime] (yhat) {{\LARGE$\hat{\vect{y}}$}};
+
+
+%% namedscope in the right
+\begin{scope}[on background layer]
+\coordinate (p1) at (yprime.north);
+\coordinate (p2) at (W2.north east);
+\coordinate (p3) at (z.south west);
+\tkzCircumCenter(p1,p2,p3)
+\tkzGetPoint{O}
+\tkzDrawCircle[draw=orange, line width=1.5pt, fill=orange!60](O,p1)
+\end{scope}
+
+
+
+% edges on the right
+\path[tedge] (W2) -- (z);
+\path[tedge] (hh) -- (z);
+\path[tedge] (z) -- (yprime);
+
+
+\end{tikzpicture}
+} % scalebox
+\end{figure}

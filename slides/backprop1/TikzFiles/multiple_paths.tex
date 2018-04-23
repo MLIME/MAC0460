@@ -1,0 +1,35 @@
+\begin{figure}[ht!]
+\centering
+
+\scalebox{1.2}{
+\begin{tikzpicture}[auto]
+
+% operations =============================
+\node[op] (div) {$div$};
+\node[textonly, right=0.1pt of div] {$=f(x,y)=\frac{x}{y}=\frac{a*c}{a+b}$};
+\node[op, above left=20pt of div] (mult) {$*$};
+\node[op, below left=20pt of div] (plus) {$+$};
+\node[op, below=20pt of plus] (b2) {$b$};
+\node[op, above=20pt of mult] (b1) {$c$};
+\node[op, left=55pt of div] (a) {$a$};
+\node[textonly, above right=5pt and 5pt of div] (inv1) {$\frac{\partial f}{\partial x} \frac{\partial x}{\partial a}$};
+\node[textonly, above left=2pt and 2pt of a] (inv2) {};
+\node[textonly, below right=5pt and 5pt of div] (inv3) {$\frac{\partial f}{\partial y} \frac{\partial y}{\partial a}$};
+\node[textonly, below left=2pt and 2pt of a] (inv4) {};
+
+
+% edges
+\path[tedge] (a) -- (mult);
+\path[tedge] (b1) -- (mult);
+\path[tedge] (a) -- (plus);
+\path[tedge] (b2) -- (plus);
+\path[tedge] (plus) -- (div);
+\path[tedge] (mult) -- (div);
+\path[tedge, nephritis!60, line width=1mm] (inv1) to [out=120,in=80] (inv2);
+\path[tedge, nephritis!60, line width=1mm] (inv3) to [out=-120,in=-80] (inv4);
+
+
+
+\end{tikzpicture}
+} % scalebox
+\end{figure}

@@ -1,0 +1,18 @@
+\begin{figure}[ht!]
+\centering
+
+\scalebox{0.7}{
+\begin{tikzpicture}[auto]
+
+% operations =============================
+\node[op] (x) {$x$};
+\node[op, right=40pt of x] (y) {$y$};
+\node[op, right=40pt of y] (u) {$u$};
+
+
+% edges =============================
+\path[tedge] (x) -- (y);
+\path[tedge] (y) -- (u);
+\end{tikzpicture}
+} % scalebox
+\end{figure}

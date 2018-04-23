@@ -1,0 +1,27 @@
+\begin{figure}[ht!]
+\centering
+
+\scalebox{1.2}{
+\begin{tikzpicture}[auto]
+
+% operations =============================
+\node[op] (times) {$div$};
+\node[op, above left=20pt of times] (a) {$a$};
+\node[op, below left=20pt of times] (b) {$b$};
+\node[gradient, above left=15pt and 20pt of a] (da) {$\frac{\partial f}{\partial a}$};
+\node[gradient, below left=15pt and 20pt of b] (db) {$\frac{\partial f}{\partial b}$};
+\node[textonly, right=0.1pt of da] {$=\frac{1}{b}$};
+\node[textonly, right=0.1pt of db] {$=\frac{-a}{b^{2}}$};
+\node[textonly, right=0.1pt of times] {$=f(a,b) =\frac{a}{b}$};
+
+% edges
+\path[tedge] (a) -- (times);
+\path[tedge] (b) -- (times);
+\path[tedge] (b) -- (da);
+\path[tedge] (a) -- (db);
+\path[tedge] (b) -- (db);
+
+
+\end{tikzpicture}
+} % scalebox
+\end{figure}

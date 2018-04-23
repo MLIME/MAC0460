@@ -1,0 +1,43 @@
+\begin{figure}[ht!]
+\centering
+
+\scalebox{1.3}{
+\begin{tikzpicture}[auto]
+
+% operations =============================
+\node[op] (x2) {$x_2$};
+\node[op, above=20pt of x2] (x1) {$x_1$};
+\node[op, below=20pt of x2] (x3) {$x_3$};
+\node[op, above right=10pt and 40pt of x2] (h2) {$h_2$};
+\node[op, above=20pt of h2] (h1) {$h_1$};
+\node[op, below=20pt of h2] (h3) {$h_3$};
+\node[op, below=20pt of h3] (h4) {$h_4$};
+\node[op, right=90pt of x2] (o) {$\hat{y}$};
+% edges
+\path[tedge] (x1) edge node[pos=0.25, above=1.8pt] {} (h1);
+\path[tedge] (x1) edge node[above=1.2pt] {} (h2);
+\path[tedge] (x1) edge node[above=1.8pt] {} (h3);
+\path[tedge_dashed] (x1) edge node[above=1.8pt] {} (h4);
+
+\path[tedge] (x2) edge node[above=1.8pt] {} (h1);
+\path[tedge_dashed] (x2) edge node[above=1.8pt] {} (h2);
+\path[tedge] (x2) edge node[above=1.8pt] {} (h3);
+\path[tedge] (x2) edge node[above=1.8pt] {} (h4);
+
+\path[tedge_dashed] (x3) edge node[above=1.8pt] {} (h1);
+\path[tedge] (x3) edge node[above=1.8pt] {} (h2);
+\path[tedge] (x3) edge node[above=1.8pt] {} (h3);
+\path[tedge] (x3) edge node[above=1.0pt] {} (h4);
+
+\path[tedge] (h1) edge node[pos=0.25, above=1.8pt, right=0.1cm] {} (o);
+\path[tedge] (h2) edge node[above=1.8pt] {} (o);
+\path[tedge] (h3) edge node[above=1.8pt] {} (o);
+\path[tedge_dashed] (h4) edge node[below=1.8pt] {\large{\alert{$0$}}}(o);
+
+
+% info edges
+
+
+\end{tikzpicture}
+} % scalebox
+\end{figure}

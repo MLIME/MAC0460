@@ -1,0 +1,19 @@
+\begin{figure}[ht!]
+\centering
+
+\scalebox{1.5}{
+\begin{tikzpicture}[auto]
+
+% operations =============================
+\node[op] (h) {$\vect{h}$};
+\node[op, above=30pt of h] (y) {$\hat{\vect{y}}$};
+\node[op, below=30pt of h] (x) {$\vect{x}$};
+
+
+% edges
+\path[tedge] (x) -- (h);
+\path[tedge] (h) -- (y);
+
+\end{tikzpicture}
+} % scalebox
+\end{figure}

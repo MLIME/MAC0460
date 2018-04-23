@@ -1,0 +1,108 @@
+\begin{figure}[ht!]
+\centering
+
+\scalebox{0.7}{
+\begin{tikzpicture}[auto]
+
+% operations =============================
+
+% input layer
+\node[op] (x5) {};
+\node[op, above=2.5pt of x5] (x4) {};
+\node[op, above=2.5pt of x4] (x3) {};
+\node[op, above=2.5pt of x3] (x2) {};
+\node[op, above=2.5pt of x2] (x1) {};
+\node[op, below=2.5pt of x5] (x6) {};
+\node[op, below=2.5pt of x6] (x7) {};
+\node[op, below=2.5pt of x7] (x8) {};
+\node[op, below=2.5pt of x8] (x9) {};
+\node[op, below=2.5pt of x9] (x10) {};
+
+\node[textonly, above=2.5pt of x1] (x) {{\LARGE$\vect{x}$}};
+\node[textonly, below=4.5pt of x10] (input) {{\large Input layer}};
+
+% hidden layer
+\node[op,  right=130pt of x5] (h2) {};
+\node[op, below=2.5pt of h2] (h3) {};
+\node[op, below=2.5pt of h3] (h4) {};
+\node[op, above=2.5pt of h2] (h1) {};
+
+\node[textonly, above=2.5pt of h1] (h) {{\LARGE$\vect{h}$}};
+\node[textonly, below=4.5pt of h4] (hidden) {{\large Hidden layer}};
+
+% output layer
+\node[op,  right=60pt of h2] (y1) {};
+\node[op,  right=60pt of h3] (y2) {};
+
+\node[textonly, above=2.5pt of y1] (y) {{\LARGE$\hat{\vect{y}}$}};
+\node[textonly, below=4.5pt of y2] (output) {{\large Output layer}};
+
+% edges input layer to hidden
+\path[tedge] (x1) -- (h1);
+\path[tedge] (x1) -- (h2);
+\path[tedge] (x1) -- (h3);
+\path[tedge] (x1) -- (h4);
+
+\path[tedge] (x2) -- (h1);
+\path[tedge] (x2) -- (h2);
+\path[tedge] (x2) -- (h3);
+\path[tedge] (x2) -- (h4);
+
+\path[tedge] (x3) -- (h1);
+\path[tedge] (x3) -- (h2);
+\path[tedge] (x3) -- (h3);
+\path[tedge] (x3) -- (h4);
+
+\path[tedge] (x4) -- (h1);
+\path[tedge] (x4) -- (h2);
+\path[tedge] (x4) -- (h3);
+\path[tedge] (x4) -- (h4);
+
+\path[tedge] (x5) -- (h1);
+\path[tedge] (x5) -- (h2);
+\path[tedge] (x5) -- (h3);
+\path[tedge] (x5) -- (h4);
+
+\path[tedge] (x6) -- (h1);
+\path[tedge] (x6) -- (h2);
+\path[tedge] (x6) -- (h3);
+\path[tedge] (x6) -- (h4);
+
+\path[tedge] (x7) -- (h1);
+\path[tedge] (x7) -- (h2);
+\path[tedge] (x7) -- (h3);
+\path[tedge] (x7) -- (h4);
+
+\path[tedge] (x8) -- (h1);
+\path[tedge] (x8) -- (h2);
+\path[tedge] (x8) -- (h3);
+\path[tedge] (x8) -- (h4);
+
+\path[tedge] (x9) -- (h1);
+\path[tedge] (x9) -- (h2);
+\path[tedge] (x9) -- (h3);
+\path[tedge] (x9) -- (h4);
+
+\path[tedge] (x10) -- (h1);
+\path[tedge] (x10) -- (h2);
+\path[tedge] (x10) -- (h3);
+\path[tedge] (x10) -- (h4);
+
+% edges hidden to output
+\path[tedge] (h1) -- (y1);
+\path[tedge] (h1) -- (y2);
+
+\path[tedge] (h2) -- (y1);
+\path[tedge] (h2) -- (y2);
+
+\path[tedge] (h3) -- (y1);
+\path[tedge] (h3) -- (y2);
+
+\path[tedge] (h4) -- (y1);
+\path[tedge] (h4) -- (y2);
+
+
+
+\end{tikzpicture}
+} % scalebox
+\end{figure}

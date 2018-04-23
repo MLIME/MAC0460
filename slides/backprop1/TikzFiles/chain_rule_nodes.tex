@@ -1,0 +1,33 @@
+\begin{figure}[ht!]
+\centering
+
+\scalebox{1.0}{
+\begin{tikzpicture}[auto]
+
+% operations =============================
+\node[op] (nt) {$u_j$};
+\node[op, above left=50pt of nt] (a) {$u_{j-1}$};
+\node[op, below left=40pt of nt] (b) {$u_{j-2}$};
+\node[op, right=40pt of nt] (ntp) {$u_{j+1}$};
+\node[textonly, right=20pt of ntp] (ntpp) {$\dots$};
+\node[op, right=40pt of ntpp] (nT) {$u_{n}$};
+\node[gradient, above=15pt of nt] (dnt) {$\frac{\partial u_{j+1}}{\partial u_{j}}$};
+\node[gradient2, above=15pt of ntp] (dntp) {$\frac{\partial u_{n}}{\partial u_{j+1}}$};
+\node[gradient2, above=15pt of dnt] (ddnt) {$\frac{\partial u_{n}}{\partial u_{j}}$};
+\node[gradient2, above=20pt of nT] (dLdL) {$\frac{\partial u_{n}}{\partial u_{n}}$};
+\node[textonly, right=0.1pt of dLdL] {$=1$};
+
+% edges =============================
+\path[tedge] (a) -- (nt);
+\path[tedge] (b) -- (nt);
+\path[tedge] (nt) -- (ntp);
+\path[tedge] (nt) -- (dnt);
+\path[tedge] (ntp) -- (ntpp);
+\path[tedge] (ntpp) -- (nT);
+\path[tedge] (ntp) -- (dntp);
+\path[tedge] (dnt) -- (ddnt);
+\path[tedge] (dntp) -- (ddnt);
+
+\end{tikzpicture}
+} % scalebox
+\end{figure}

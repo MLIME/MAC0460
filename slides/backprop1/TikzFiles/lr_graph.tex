@@ -1,0 +1,40 @@
+\begin{figure}[ht!]
+\centering
+
+\scalebox{0.8}{
+\begin{tikzpicture}[auto]
+
+% operations =============================
+
+% input x and W
+\node[op] (w1) {$w_{1}$};
+\node[op, below=10pt of w1] (x1) {$x_{1}$};
+\node[op, below=20pt of x1] (w2) {$w_{2}$};
+\node[op, below=10pt of w2] (x2) {$x_{2}$};
+
+% multiplication
+\node[op, below right=1pt and 40pt of w1] (mult1) {$*$};
+\node[op, below right=1pt and 40pt of w2] (mult2) {$*$};
+% sum
+\node[op, below right=25pt and 20pt of mult1] (sum1) {$+$};
+\node[op, right=65pt of sum1] (sum2) {$+$};
+\node[op, below=35pt of sum2] (minus) {$-1$};
+\node[op, left=25pt of minus] (y) {$y$};
+\node[op, right=45pt of sum2] (squ) {$squ$};
+
+
+%edges
+\path[tedge] (w1) -- (mult1);
+\path[tedge] (x1) -- (mult1);
+\path[tedge] (w2) -- (mult2);
+\path[tedge] (x2) -- (mult2);
+
+\path[tedge] (mult1) -- (sum1);
+\path[tedge] (mult2) -- (sum1);
+\path[tedge] (sum1) -- (sum2);
+\path[tedge] (y) -- (minus);
+\path[tedge] (minus) -- (sum2);
+\path[tedge] (sum2) -- (squ);
+\end{tikzpicture}
+} % scalebox
+\end{figure}

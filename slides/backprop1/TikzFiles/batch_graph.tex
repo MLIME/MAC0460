@@ -1,0 +1,72 @@
+\begin{figure}[ht!]
+\centering
+
+\scalebox{0.8}{
+\begin{tikzpicture}[auto]
+
+% operations =============================
+
+\begin{scope}[xshift=0cm,yshift=0cm]
+            \begin{scope}[xshift=0cm,yshift=0cm]
+            \node[placeholder] (x1) at (1,3.5) {$\begin{bmatrix}0.3\\0.5\end{bmatrix}$};
+            \end{scope}
+            \begin{scope}[xshift=-0.6cm,yshift=-0.6cm]
+            \node[placeholder] (x2)  at (1,3.5) {$\begin{bmatrix}0.8\\0.1\end{bmatrix}$};
+            \end{scope}
+            \begin{scope}[xshift=-1.2cm,yshift=-1.2cm]
+            \node[placeholder] (x3)  at (1,3.5) {$\begin{bmatrix}0.2\\0.7\end{bmatrix}$};
+            \end{scope}  
+\end{scope}
+
+\begin{scope}[xshift=0cm,yshift=0cm]
+            \begin{scope}[xshift=0cm,yshift=0cm]
+            \node[placeholder] (y1) at (1,1) {$\begin{bmatrix}1\\0\end{bmatrix}$};
+            \end{scope}
+            \begin{scope}[xshift=-0.6cm,yshift=-0.6cm]
+            \node[placeholder] (y2)  at (1,1) {$\begin{bmatrix}0\\1\end{bmatrix}$};
+            \end{scope}
+            \begin{scope}[xshift=-1.2cm,yshift=-1.2cm]
+            \node[placeholder] (y3)  at (1,1) {$\begin{bmatrix}1\\0\end{bmatrix}$};
+            \end{scope}  
+\end{scope}
+
+\begin{scope}[xshift=0cm,yshift=0cm]
+            \begin{scope}[xshift=0cm,yshift=0cm]
+            \node[op] (df1) at (7,1)  {\large{L}};
+            \end{scope}
+            \begin{scope}[xshift=-0.4cm,yshift=-0.4cm]
+            \node[op] (df2)  at (7,1)  {\large{L}};
+            \end{scope}
+            \begin{scope}[xshift=-0.8cm,yshift=-0.8cm]
+            \node[op] (df3)  at (7,1)  {\large{L}};
+            \end{scope}  
+\end{scope}
+
+
+\begin{scope}[xshift=0cm,yshift=0cm]
+            \begin{scope}[xshift=0cm,yshift=0cm]
+            \node[gradient2] (grad1) at (12,1)  {$-0.26$};
+            \end{scope}
+            \begin{scope}[xshift=-0.6cm,yshift=-0.6cm]
+            \node[gradient2] (grad2)  at (12,1)  {$0.54$};
+            \end{scope}
+            \begin{scope}[xshift=-1.2cm,yshift=-1.2cm]
+            \node[gradient2] (grad3)  at (12,1)  {$-0.19$};
+            \end{scope}  
+\end{scope}
+
+
+\node[textonly, right=10pt of x2] (inv1) {};
+\node[textonly, right=10pt of y2] (inv2) {};
+\node[textonly, left=10pt of df2] (inv3) {};
+\node[textonly, right=10pt of df2] (inv4) {};
+\node[textonly, left=10pt of grad2] (inv5) {};
+
+%edges
+\path[tedge, orange!120, line width=1.5mm]  (inv1) -- (inv3);
+\path[tedge, orange!120, line width=1.5mm]  (inv2) -- (inv3);
+\path[tedge, green2!120, line width=1.5mm]  (inv4) -- (inv5);
+
+\end{tikzpicture}
+} % scalebox
+\end{figure}

@@ -1,0 +1,20 @@
+\begin{figure}[ht!]
+\centering
+
+\scalebox{1.0}{
+\begin{tikzpicture}[auto]
+
+% operations =============================
+\node[op] (z) {$z$};
+\node[op, above left=50pt of z] (x) {$x$};
+\node[op, below left=40pt of z] (y) {$y$};
+\node[op, right=40pt of z] (u) {$u$};
+
+
+% edges =============================
+\path[tedge] (x) -- (z);
+\path[tedge] (y) -- (z);
+\path[tedge] (z) -- (u);
+\end{tikzpicture}
+} % scalebox
+\end{figure}

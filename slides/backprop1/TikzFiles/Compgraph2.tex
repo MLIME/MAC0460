@@ -1,0 +1,33 @@
+\begin{figure}[ht!]
+\centering
+
+\scalebox{1.15}{
+\begin{tikzpicture}[auto]
+
+% operations =============================
+
+% nodes
+\node[op] (W1) {$\vect{W}_{1}$};
+\node[textonly, below=40pt of W1] (inv1) {};
+\node[op, below=20pt of inv1] (x) {$\vect{x}$};
+\node[op, right=30.5pt of inv1] (v) {$\vect{v}$};
+\node[textonly, left=1.5pt of v] (matmtul1) {matmul};
+\node[op, right=35pt of v] (h) {$\vect{h}$};
+\node[op, right=110pt of W1] (W2) {$\vect{W}_{2}$};
+\node[op, right=35pt of h] (z) {$\vect{z}$};
+\node[op, right=55pt of z] (y) {$\hat{\vect{y}}$};
+\node[textonly, above left=1.5pt of z] (matmtul2) {matmul};
+
+
+% edges
+\path[tedge] (W1) -- (v);
+\path[tedge] (x) -- (v);
+\path[tedge] (v) edge node[above=1pt] {{\Large$\sigma$}} (h);
+\path[tedge] (z) edge node[above=1pt] {{\Large softmax}}  (y);
+\path[tedge] (W2) -- (z);
+\path[tedge] (h) -- (z);
+
+
+\end{tikzpicture}
+} % scalebox
+\end{figure}

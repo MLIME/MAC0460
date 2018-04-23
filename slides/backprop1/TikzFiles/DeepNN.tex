@@ -1,0 +1,61 @@
+\begin{figure}[ht!]
+\centering
+
+\scalebox{0.7}{
+\begin{tikzpicture}[auto]
+
+% operations =============================
+\node[op] (h1) {$\vect{h}^{(1)}$};
+\node[op, below=30pt of h1] (x) {$\vect{x}$};
+\node[op, above=30pt of h1] (h2) {$\vect{h}^{(2)}$};
+\node[textonly, above=20pt of h2] (hdots) {{\LARGE$\vdots$}};
+\node[op, above=20pt of hdots] (hn) {$\vect{h}^{(n)}$};
+\node[op, above=30pt of hn] (y) {$\hat{\vect{y}}$};
+
+%invisible nodes
+\node[textonly, above right=2pt of y] (yinv1) {};
+\node[textonly, below right=2pt of y] (yinv2) {};
+\node[textonly, right=26pt of y] (yinv3) {output layer};
+
+\node[textonly, above right=2pt of hn] (hinv1) {};
+\node[textonly, below right=2pt of h1] (hinv2) {};
+\node[textonly, right=26pt of h2] (hinv3) {hidden layers};
+
+\node[textonly, above right=2pt of x] (xinv1) {};
+\node[textonly, below right=2pt of x] (xinv2) {};
+\node[textonly, right=26pt of x] (xinv3) {input layer};
+
+
+\visible<2->{\node[textonly, above left=0.1pt and 0.1pt of y] (d1) {};}
+\visible<2->{\node[textonly, below left=0.1pt and 0.1pt of x] (d2) {};}
+\visible<2->{\node[textonly, left=56pt of hdots] (d3) {{\large\alert{deep model}}};}
+
+
+% edges
+\path[tedge] (x) -- (h1);
+\path[tedge] (h1) -- (h2);
+\path[tedge] (h2) -- (hdots);
+\path[tedge] (hdots) -- (hn);
+\path[tedge] (hn) -- (y);
+
+% visual aid edges
+\draw[orange!120, line width=1mm]  (yinv3) to [out=180,in=-80] (yinv1);
+\draw[orange!120, line width=1mm]  (yinv3) to [out=180,in=80] (yinv2);
+
+
+\draw[orange!120, line width=1mm]  (hinv3) to [out=180,in=-80] (hinv1);
+\draw[orange!120, line width=1mm]  (hinv3) to [out=180,in=80] (hinv2);
+
+
+\draw[orange!120, line width=1mm]  (xinv3) to [out=180,in=-80] (xinv1);
+\draw[orange!120, line width=1mm]  (xinv3) to [out=180,in=80] (xinv2);
+
+
+\visible<2->{\draw[orange!180, line width=1mm]  (d3) to [out=0,in=180] (d1);}
+\visible<2->{\draw[orange!180, line width=1mm]  (d3) to [out=0,in=180] (d2);}
+
+
+
+\end{tikzpicture}
+} % scalebox
+\end{figure}

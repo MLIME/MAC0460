@@ -1,0 +1,35 @@
+\begin{figure}[ht!]
+\centering
+
+\scalebox{1.15}{
+\begin{tikzpicture}[auto]
+
+% operations =============================
+\node[op] (x2) {$x_2$};
+\node[op, above=40pt of x2] (x1) {$x_1$};
+\node[op, below=40pt of x2] (x3) {$x_3$};
+\node[op, right=60pt of x2] (vk) {$v$};
+\node[op, right=40pt of vk] (yk) {$\hat{y}$};
+\node[textonly, below right=20pt of x3] (Synaptic) {Synaptic link};
+\node[textonly, below right=50pt of vk] (Activation) {Activation link};
+\node[textonly, above right=28pt and -46pt of yk] (f) {$\hat{y} = f(\vect{x};\vect{\theta})= g\left(\sum_{i=1}^{3} \theta_ix_i\right)$};
+
+
+% edges
+\path[tedge] (x1) edge node[above=1.8pt] {$\theta_{1}$} (vk);
+\path[tedge] (x2) edge node[above=0.2pt] {$\theta_{2}$} (vk);
+\path[tedge] (x3) edge node[above=3.8pt] {$\theta_{3}$} (vk);
+\path[tedge] (vk) edge node[above=1pt] {{\Large$g$}}  (yk) ;
+
+% info edges
+\draw[orange!120, line width=1mm]  (Synaptic) to [out=150,in=0] (x3);
+\draw[orange!120, line width=1mm] (Synaptic) to [out=150,in=-100] (vk);
+
+\draw[orange!120, line width=1mm]  (Activation) to [out=170,in=-40] (vk);
+\draw[orange!120, line width=1mm] (Activation) to [out=170,in=-100] (yk);
+
+
+
+\end{tikzpicture}
+} % scalebox
+\end{figure}

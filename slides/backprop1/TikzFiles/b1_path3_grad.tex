@@ -1,0 +1,91 @@
+\begin{figure}[ht!]
+\centering
+
+\scalebox{0.7}{
+\begin{tikzpicture}[auto]
+
+% operations =============================
+
+% multiplication
+\node[op] (z1) {$z_1$};
+\node[op, above left=25pt and 20pt of z1] (b1) {$b_1$};
+
+% exp
+\node[op, right=25pt of z1] (exp1) {$h_1$};
+\node[op, right=25pt of exp1] (H) {$H$};
+\node[op, right=35pt of H] (div1) {$\hat{y}_2$};
+
+% log
+\node[op, right=25pt of div1] (log1) {$\log$};
+\node[op, right=25pt of log1] (mult5) {$*$};
+\node[op, below left=25pt and 10pt of mult5] (y2) {$y_2$};
+\node[op, right=25pt of mult5] (sum6) {$+$};
+\node[op, right=25pt of sum6] (minus1) {$*-1$};
+\node[textonly, below left=55pt and 10pt of sum6] (dots) {{\LARGE$\dots$}};
+
+%gradients 1
+\node[gradient, above=10pt of sum6] (dsum6) {$-1$};
+\node[gradient, above=10pt of mult5] (dmult5) {$1$};
+\node[gradient, above=10pt of log1] (dlog1) {$y_2$};
+\node[gradient, above=10pt of div1] (ddiv1) {$\frac{H}{h_1}$};
+\node[gradient, above=10pt of H] (dH) {$-\frac{h_1}{H^2}$};
+\node[gradient, above=10pt of exp1] (dexp1) {$1$};
+\node[gradient, above=10pt of z1] (dz1) {$h_1$};
+\node[gradient, above=10pt of b1] (db1) {$1$};
+
+%gradients 2
+\node[gradient2, above=10pt of minus1] (dLdL) {$1$};
+\node[gradient2, above right =30pt and 10pt of dsum6] (dLdLpp) {$-1$};
+\node[gradient2, above left=30pt and 10pt of dsum6] (dLdmult5) {$-1$};
+\node[gradient2, left=25pt of dLdmult5] (dLlog1) {$-y_2$};
+\node[gradient2, left=25pt of dLlog1] (dLdiv1) {$-y_2\frac{H}{h_1}$};
+\node[gradient2, left=25pt of dLdiv1] (dLdH) {$\frac{y_2}{H}$};
+\node[gradient2, left=25pt of dLdH] (dLdexp1) {$\frac{y_2}{H}$};
+\node[gradient2, left=25pt of dLdexp1] (dLdz1) {$y_2\frac{h_1}{H}$};
+\node[gradient2, above=35pt of db1] (dLdb1) {$y_2\frac{h_1}{H}$};
+
+%edges
+\path[tedge] (b1) -- (z1);
+\path[tedge] (z1) -- (exp1);
+\path[tedge] (exp1) -- (H);
+\path[tedge] (H) -- (div1);
+
+\path[tedge] (div1) -- (log1);
+\path[tedge] (log1) -- (mult5);
+\path[tedge] (y2) -- (mult5);
+\path[tedge] (mult5) -- (sum6);
+\path[tedge] (dots) -- (sum6);
+\path[tedge] (sum6) -- (minus1);
+
+%edges gradient 1
+% \path[tedge] (b1) -- (db1);
+% \path[tedge] (z1) -- (dz1);
+% \path[tedge] (exp1) -- (dexp1);
+% \path[tedge] (div1) -- (ddiv1);
+% \path[tedge] (H) -- (dH);
+% \path[tedge] (log1) -- (dlog1);
+% \path[tedge] (mult5) -- (dmult5);
+% \path[tedge] (sum6) -- (dsum6);
+
+%edges gradient 2
+\path[tedge] (dsum6) -- (dLdLpp);
+\path[tedge] (dLdL) -- (dLdLpp);
+\path[tedge] (dLdLpp) -- (dLdmult5);
+\path[tedge] (dmult5) -- (dLdmult5);
+\path[tedge] (dLdmult5) -- (dLlog1);
+\path[tedge] (dlog1) -- (dLlog1);
+\path[tedge] (ddiv1) -- (dLdiv1);
+\path[tedge] (dLlog1) -- (dLdiv1);
+\path[tedge] (dexp1) -- (dLdexp1);
+\path[tedge] (dH) -- (dLdH);
+\path[tedge] (dLdiv1) -- (dLdH);
+\path[tedge] (dLdH) -- (dLdexp1);
+\path[tedge] (dz1) -- (dLdz1);
+\path[tedge] (dLdexp1) -- (dLdz1);
+\path[tedge] (db1) -- (dLdb1);
+\path[tedge] (dLdz1) -- (dLdb1);
+
+
+\end{tikzpicture}
+} % scalebox
+\end{figure}

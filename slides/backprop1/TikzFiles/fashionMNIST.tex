@@ -1,0 +1,35 @@
+\begin{figure}[ht!]
+\centering
+
+\scalebox{1.05}{
+\begin{tikzpicture}[auto]
+
+% operations =============================
+
+% nodes
+\node (shirt)
+    {\includegraphics[width=.15\textwidth]{images/shirt.png}};
+\node[textonly, below=1pt of shirt] (dimension0) {{\small$28\times 28$}};
+\node[textonly, above right= 10pt and 90pt of shirt] (vector) {$\begin{bmatrix}0.34\\ \vdots \\0.06\end{bmatrix}$};
+\node[textonly, above=1pt of vector] (x) {$\vect{x}$};
+\node[textonly, below=1pt of vector] (dimension1) {{\small$784\times 1$}};
+
+\node[textonly, below=30pt of vector] (y) {$y=1$};
+
+\node[textonly, below=30pt of y] (one-hot) {$\begin{bmatrix}1\\ \vdots \\0\end{bmatrix}$};
+
+\node[textonly, above=1pt of one-hot] (yvector) {$\vect{y}$};
+\node[textonly, below=1pt of one-hot] (dimension2) {{\small$10\times 1$}};
+
+
+
+% edges
+\path[tedge, orange!120, line width=1mm]  (shirt) -- (vector);
+\path[tedge, orange!120, line width=1mm] (shirt) -- (y);
+\path[tedge, orange!120, line width=1mm] (shirt) -- (one-hot);
+
+
+
+\end{tikzpicture}
+} % scalebox
+\end{figure}

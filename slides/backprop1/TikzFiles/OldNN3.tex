@@ -1,0 +1,50 @@
+\begin{figure}[ht!]
+\centering
+
+\scalebox{0.7}{
+\begin{tikzpicture}[auto]
+
+% operations =============================
+
+% input layer
+\node[op] (x5) {};
+\node[op, above=2.5pt of x5] (x4) {};
+\node[op, above=2.5pt of x4] (x3) {};
+\node[op, above=2.5pt of x3] (x2) {};
+\node[op, above=2.5pt of x2] (x1) {};
+\node[op, below=2.5pt of x5] (x6) {};
+\node[op, below=2.5pt of x6] (x7) {};
+\node[op, below=2.5pt of x7] (x8) {};
+\node[op, below=2.5pt of x8] (x9) {};
+\node[op, below=2.5pt of x9] (x10) {};
+
+\node[textonly, above=2.5pt of x1] (x) {{\LARGE$\vect{x}$}};
+\node[textonly, below=4.5pt of x10] (input) {{\large Input layer}};
+
+% hidden layer
+\node[op,  right=130pt of x5] (h2) {};
+\node[op, below=2.5pt of h2] (h3) {};
+\node[op, below=2.5pt of h3] (h4) {};
+\node[op, above=2.5pt of h2] (h1) {};
+
+\node[textonly, above=2.5pt of h1] (h) {{\LARGE$\vect{h}$}};
+\node[textonly, below=4.5pt of h4] (hidden) {{\large Hidden layer}};
+
+% output layer
+\node[op,  right=60pt of h2] (y1) {};
+\node[op,  right=60pt of h3] (y2) {};
+
+\node[textonly, above=2.5pt of y1] (y) {{\LARGE$\hat{\vect{y}}$}};
+\node[textonly, below=4.5pt of y2] (output) {{\large Output layer}};
+
+% edges input layer to hidden
+\draw[line width=0.5mm] (x1) -- (hidden);
+\draw[line width=0.5mm] (x10) -- (h);
+
+% edges hidden to output
+\draw [line width=0.5mm]  (h1) -- (output);
+\draw [line width=0.5mm]  (h4) -- (y);
+
+\end{tikzpicture}
+} % scalebox
+\end{figure}
