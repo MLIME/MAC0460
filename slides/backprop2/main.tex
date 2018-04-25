@@ -1,0 +1,746 @@
+\documentclass[10pt]{beamer}
+\usetheme{metropolis}
+% all imports
+\input{all_imports}
+
+\AtBeginEnvironment{quote}{\singlespacing}
+
+% new commands
+\input{all_new_commands}
+
+% definitions
+\input{definitions/colors}
+\input{definitions/styles}
+
+\input{header}
+
+\begin{document}
+\nocite{DeepLearningbook}
+\nocite{VectorCalculus}
+\nocite{graphsbackprop}
+\nocite{DBLP:journals/corr/abs-1802-01528}
+
+\maketitle
+
+\begin{frame}{Definição de Jacobiano}
+\Large{
+\begin{equation*}
+f(x, y) = x + y
+\end{equation*}
+
+\vspace{0.5 cm}
+
+\begin{equation*}
+f\left( \vect{u} = \begin{bmatrix}x \\ y\end{bmatrix}\right) = x + y
+\end{equation*}
+
+
+\vspace{0.5 cm}
+
+\begin{equation*}
+\grad{\vect{u}}{f} = \Jacobian{f}{\vect{u}} = \begin{bmatrix} \Jacobian{f}{x} & \Jacobian{f}{y} \end{bmatrix}
+\end{equation*}
+}
+\end{frame}
+
+\begin{frame}{Convenção de shape}
+\large{
+\begin{figure}[H]
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+\cellcolor{orange!100}  & \cellcolor{orange!100} $shape(\vect{x}) = 1\times1$ & \cellcolor{orange!100} $shape(\vect{x}) = n\times1$ \\ \hline
+ \cellcolor{orange!100} $shape(\vect{f}) = 1\times1$ & $shape(\Jacobian{\vect{f}}{\vect{x}}) = 1\times1$ & $shape(\Jacobian{\vect{f}}{\vect{x}}) = 1\times n$ \\ \hline
+\cellcolor{orange!100} $shape(\vect{f}) = m\times1$ & $shape(\Jacobian{\vect{f}}{\vect{x}}) = m\times1$ & $shape(\Jacobian{\vect{f}}{\vect{x}}) = m\times n$ \\ \hline
+\end{tabular}
+\end{center}
+\end{figure}
+}
+\end{frame}
+
+
+\begin{frame}{Discussão}
+\large{
+Dado $\vect{u} \in \mathbb{R}^{n}$ e $f:\mathbb{R}^{n} \rightarrow \mathbb{R}$ podemos definir $\grad{\vect{u}}{f} = \Jacobian{f}{\vect{u}}$ como um vetor coluna. 
+
+\vspace{0.3cm}
+\begin{itemize}
+\item (\alert{positivo}) $u  + \grad{\vect{u}}{f}$ faz sentido.
+
+\item[]
+
+
+\item (\alert{negativo}) quando $\vect{x} \in \mathbb{R}^{n}$, $f:\mathbb{R}^{k} \rightarrow \mathbb{R}$, $\vect{g}:\mathbb{R}^{n} \rightarrow \mathbb{R}^{k}$, $\vect{y} = \vect{g}(\vect{x})$ e $z = f(\vect{y})$, a regra da cadeia tem um formato menos intuitivo.
+
+\begin{equation*}
+\grad{\vect{x}}{z} = (\Jacobian{\vect{y}}{\vect{x}})^{\top} \grad{\vect{y}}{z}
+\end{equation*}
+
+\end{itemize}
+}
+\end{frame}
+
+
+
+\begin{frame}{Operações básicas: produto vetor-escalar}
+\Large{
+$\vect{x}\in \mathbb{R}^{n}$ e $\alpha \in \mathbb{R}$
+
+\vspace{0.3 cm}
+
+\begin{equation*}
+\vect{u} = \vect{x}\alpha
+\end{equation*}
+
+\vspace{0.3 cm}
+\begin{itemize}
+\item $\Jacobian{\vect{u}}{\vect{x}} = \underbrace{diag(\vect{1}\alpha)}_{\tiny{n \times n}}$
+\item[]
+\item $\Jacobian{\vect{u}}{\alpha} = \underbrace{\vect{x}}_{\tiny{n \times 1}}$
+\end{itemize}
+}
+\end{frame}
+
+\begin{frame}{Operações básicas: soma}
+\Large{
+$\vect{x},\vect{y} \in \mathbb{R}^{n}$
+
+\vspace{0.3 cm}
+
+\begin{equation*}
+\vect{u} = \vect{x} + \vect{y}
+\end{equation*}
+
+\vspace{0.3 cm}
+\begin{itemize}
+\item $\Jacobian{\vect{u}}{\vect{x}} = diag(\vect{1}) = \underbrace{\vect{I}}_{\tiny{n \times n}}$
+\item[]
+\item $\Jacobian{\vect{u}}{\vect{y}} = diag(\vect{1}) = \underbrace{\vect{I}}_{\tiny{n \times n}}$
+\end{itemize}
+}
+\end{frame}
+
+\begin{frame}{Operações básicas: Hadamard product}
+\Large{
+$\vect{x},\vect{y} \in \mathbb{R}^{n}$
+
+\vspace{0.3 cm}
+
+\begin{equation*}
+\vect{u} = \vect{x} \odot \vect{y}
+\end{equation*}
+
+
+\vspace{0.3 cm}
+\begin{itemize}
+\item $\Jacobian{\vect{u}}{\vect{x}} = \underbrace{diag(\vect{y})}_{\tiny{n \times n}}$
+\item[]
+\item $\Jacobian{\vect{u}}{\vect{y}} = \underbrace{diag(\vect{x})}_{\tiny{n \times n}}$
+\end{itemize}
+}
+\end{frame}
+
+\begin{frame}{Operações básicas: função escalar aplicada em vetor}
+\Large{
+
+
+$\vect{x}\in \mathbb{R}^{n}$ e $h:\mathbb{R} \rightarrow \mathbb{R}$ é uma função diferenciável.
+
+\vspace{0.1 cm}
+
+\begin{equation*}
+\vect{u} = h(\vect{x}) = \begin{bmatrix}h(x_1)\\ h(x_2)\\ \vdots \\h(x_n)\end{bmatrix}
+\end{equation*}
+
+\vspace{0.1 cm}
+\begin{itemize}
+\item $\Jacobian{\vect{u}}{\vect{x}} = \underbrace{diag(h^{\prime}(\vect{x}))}_{\tiny{n \times n}} \;\;\;\;\;\;\; \text{onde} \;\; h^{\prime}(\vect{x}) = \begin{bmatrix}\frac{d h(x_1)}{d x_1}\\ \frac{d h(x_2)}{d x_2}\\ \vdots \\\frac{d h(x_n)}{d x_n}\end{bmatrix}$
+\end{itemize}
+}
+\end{frame}
+
+
+\begin{frame}{Operações básicas: redução por soma}
+\Large{
+$\vect{x}\in \mathbb{R}^{n}$
+
+\vspace{0.3 cm}
+
+\begin{equation*}
+u = sum(\vect{x}) = \sum_{i=1}^{n} x_{i}
+\end{equation*}
+
+\vspace{0.3 cm}
+\begin{itemize}
+\item $\Jacobian{u}{\vect{x}} = \underbrace{\vect{1}^{\top}}_{\tiny{1 \times n}}$
+\end{itemize}
+}
+\end{frame}
+
+
+\begin{frame}{Operações básicas: multiplicação matriz-vetor}
+\Large{
+$\vect{x}\in \mathbb{R}^{n}$, $\vect{W} \in \mathbb{R}^{d\times n}$ 
+
+\vspace{0.3 cm}
+
+\begin{equation*}
+\vect{u} = \vect{W}\vect{x}
+\end{equation*}
+
+
+
+\vspace{0.3 cm}
+\begin{itemize}
+\item $\Jacobian{\vect{u}}{\vect{x}} = \underbrace{\vect{W}}_{d \times n}$
+\item[]
+
+
+
+\item $\underbrace{\Jacobian{\vect{u}}{\vect{W}}}_{d\times d \times n}$ tal que $\Jacobian{\vect{u}}{\vect{W}} _{i,j,k} = \begin{cases}
+0, \text{ se } i \neq j\\
+x_k, \text{ se } i = j\\
+\end{cases}$
+\end{itemize}
+}
+\end{frame}
+
+
+\begin{frame}{Revisão: regra da cadeia}
+
+Dados $x, u_1(x), \dots, u_n(x) \in \mathbb{R}$ e $f:\mathbb{R}^{n} \rightarrow \mathbb{R}$ temos que cada $u_i$ varia dado uma variação em $x$. Assim a regra da cadeia para várias variáveis é definida como:
+
+\vspace{0.3 cm}
+
+\begin{align*}
+\Jacobian{f(u_1, \dots, u_n)}{x} &= \Jacobian{f(u_1, \dots, u_n)}{u_1}\Jacobian{u_1}{x} + \dots +  \Jacobian{f(u_1, \dots, u_n)}{u_n}\Jacobian{u_n}{x}\\
+&\\
+&= \sum_{i=1}^{n} \Jacobian{f(u_1, \dots, u_n)}{u_i}\Jacobian{u_i}{x}\\
+\end{align*}
+\end{frame}
+
+
+\begin{frame}{Regra da cadeia, caso vetorial}
+\large{
+$\vect{x}\in \mathbb{R}^{n}$, $\vect{f}:\mathbb{R}^{k} \rightarrow \mathbb{R}^{m}$ e $\vect{g}:\mathbb{R}^{n} \rightarrow \mathbb{R}^{k}$.
+
+\vspace{1.0 cm}
+
+$\vect{g}(\vect{x}) = \begin{bmatrix}g_1(x_1, \dots, x_n)\\ g_2(x_1, \dots, x_n)\\ \vdots \\g_k(x_1, \dots, x_n)\end{bmatrix} \;\;\;\;\;\;\;\; \vect{f}(\vect{g}(\vect{x})) = \begin{bmatrix}f_1(g_1, \dots, g_k)\\ f_2(g_1, \dots, g_k)\\ \vdots \\f_m(g_1, \dots, g_k)\end{bmatrix}$
+}
+\end{frame}
+
+
+\begin{frame}{Regra da cadeia, caso vetorial}
+\large{
+\begin{align*}
+\Jacobian{\vect{f}(\vect{g}(\vect{x}))}{\vect{x}}_{i,j} &= \Jacobian{f_i}{x_j}\\
+&\\
+&= \Jacobian{f_i(g_1, \dots, g_k)}{x_j}\\
+&\\
+&= \sum_{s=1}^{k} \Jacobian{f_i(g_1, \dots, g_k)}{g_s}\Jacobian{g_s}{x_j}\\
+&\\
+&= \Jacobian{\vect{f}}{\vect{g}} \Jacobian{\vect{g}}{\vect{x}}_{i,j}
+\end{align*}
+}
+\end{frame}
+
+
+\begin{frame}{Regra da cadeia, caso vetorial}
+\Large{
+
+\begin{equation*}
+\underbrace{\Jacobian{\vect{f}(\vect{g}(\vect{x}))}{\vect{x}}}_{m \times n}  = \underbrace{\Jacobian{\vect{f}}{\vect{g}}}_{m \times k} \, \underbrace{\Jacobian{\vect{g}}{\vect{x}}}_{k \times n}
+\end{equation*}
+}
+\end{frame}
+
+\begin{frame}{Regra da cadeia, caso vetorial}
+\Large{
+Dados $\vect{x} \in  \mathbb{R}^{n}$,  $\vect{u}^{(1)}(\vect{x}), \dots, \vect{u}^{(s)}(\vect{x}) \in \mathbb{R}^{k}$ e $\vect{f}:\mathbb{R}^{s \times k} \rightarrow \mathbb{R}^{m}$:
+
+\begin{equation*}
+\Jacobian{\vect{f}(\vect{u}^{(1)}, \dots, \vect{u}^{(s)})}{\vect{x}} = \sum_{i=1}^{s} \Jacobian{\vect{f}(\vect{u}^{(1)}, \dots, \vect{u}^{(s)})}{\vect{u}^{(i)}} \Jacobian{\vect{u}^{(i)}}{\vect{x}}
+\end{equation*}
+}
+\end{frame}
+
+\begin{frame}{Novas operações: subtração}
+
+\Large{
+
+$\vect{x},\vect{y} \in \mathbb{R}^{n}$
+
+\vspace{0.3 cm}
+
+\begin{equation*}
+\vect{u} = \vect{x} - \vect{y}
+\end{equation*}
+
+$\vect{u} = \vect{f}(\vect{g}(\vect{y})) = \vect{x} + \vect{g}(\vect{y})$
+
+$\vect{g}(\vect{y}) = - \vect{y}$
+
+
+\vspace{0.3 cm}
+\begin{itemize}
+\item $\Jacobian{\vect{u}}{\vect{x}} = \underbrace{\vect{I}}_{\tiny{n \times n}}$
+\item[]
+\item $\Jacobian{\vect{u}}{\vect{y}} = \Jacobian{\vect{f}}{\vect{g}} \Jacobian{\vect{g}}{\vect{y}} = \underbrace{\vect{I}}_{\tiny{n \times n}} (\underbrace{-\vect{I}}_{\tiny{n \times n}}) = \underbrace{-\vect{I}}_{\tiny{n \times n}}$
+\end{itemize}
+}
+\end{frame}
+
+
+\begin{frame}{Novas operações: produto escalar}
+\Large{
+
+$\vect{x},\vect{y} \in \mathbb{R}^{n}$
+
+\vspace{0.1 cm}
+
+\begin{equation*}
+u = \vect{x}^{\top}\vect{y}
+\end{equation*}
+
+\vspace{0.2 cm}
+$u = \vect{f}(\vect{g}(\vect{x},\vect{y})) = sum(\vect{g}(\vect{x}, \vect{y}))$
+
+\vspace{0.2 cm}
+$\vect{g}(\vect{x}, \vect{y}) = \vect{x} \odot \vect{y}$
+
+
+\vspace{0.2 cm}
+\begin{itemize}
+\item $\Jacobian{u}{\vect{x}} = \Jacobian{\vect{f}}{\vect{g}} \Jacobian{\vect{g}}{\vect{x}} = \underbrace{\vect{1}^{\top}}_{\tiny{1 \times n}} \underbrace{diag(\vect{y})}_{\tiny{n \times n}} \;\; = \underbrace{\vect{y}^{\top}}_{\tiny{1 \times n}}$
+\item[]
+\item $\Jacobian{u}{\vect{y}} = \Jacobian{\vect{f}}{\vect{g}} \Jacobian{\vect{g}}{\vect{y}} = \;\; \underbrace{\vect{1}^{\top}}_{\tiny{1 \times n}} \underbrace{diag(\vect{x})}_{\tiny{n \times n}} \;\; = \underbrace{\vect{x}^{\top}}_{\tiny{1 \times n}}$
+\end{itemize}
+}
+\end{frame}
+
+\begin{frame}{Exemplo 1: regressão linear}
+\large{
+
+$\vect{x},\vect{w} \in \mathbb{R}^{n}$ e $y \in \mathbb{R}$
+\begin{equation*}
+L = f(g(\hat{y}))
+\end{equation*}
+
+$\hat{y} = \vect{w}^{\top}\vect{x}$
+
+$g(\hat{y}) = \hat{y} - y$
+
+$f(g(\hat{y})) = g(\hat{y})^2$
+
+
+\begin{align*}
+\Jacobian{L}{\vect{w}} &= \Jacobian{f}{g}\Jacobian{g}{\hat{y}}\Jacobian{\hat{y}}{\vect{w}}\\
+% &\\
+&= \underbrace{2(\hat{y} - y)}_{\tiny{1 \times 1}} \underbrace{1}_{\tiny{1 \times 1}} \underbrace{\vect{x}^{\top}}_{\tiny{1 \times n}} \\
+% &\\
+&= \underbrace{2(\hat{y} - y)\vect{x}^{\top}}_{\tiny{1 \times n}} 
+\end{align*}
+}
+\end{frame}
+
+\begin{frame}{Novas operações: transformação afim}
+\large{
+$\vect{x}\in \mathbb{R}^{n}$, $\vect{W} \in \mathbb{R}^{d\times n}$, $\vect{b}\in \mathbb{R}^{d}$
+\vspace{0.1 cm}
+\begin{equation*}
+\vect{u} = \vect{W}\vect{x} + \vect{b}
+\end{equation*}
+
+\vspace{0.2 cm}
+$\vect{u} = \vect{f}(\vect{g}(\vect{W},\vect{x})) =\vect{g}(\vect{W}, \vect{x}) + \vect{b}$
+
+\vspace{0.2 cm}
+$\vect{g}(\vect{W}, \vect{x}) = \vect{W}\vect{x}$
+
+\vspace{0.2 cm}
+\begin{itemize}
+\item $\Jacobian{\vect{u}}{\vect{x}} = \Jacobian{\vect{f}}{\vect{g}}\Jacobian{\vect{g}}{\vect{x}} = \underbrace{\vect{I}}_{\tiny{d \times d}}\underbrace{\vect{W}}_{\tiny{d \times n}} = \underbrace{\vect{W}}_{\tiny{d \times n}}$
+\item[]
+\item $\Jacobian{\vect{u}}{\vect{b}} = \underbrace{\vect{I}}_{\tiny{d \times d}}$
+\item[]
+\item $\Jacobian{\vect{u}}{\vect{W}} = \Jacobian{\vect{f}}{\vect{g}}\Jacobian{\vect{g}}{\vect{W}} = \underbrace{\vect{I}}_{\tiny{d \times d}}\underbrace{\Jacobian{\vect{g}}{\vect{W}}}_{\tiny{d \times d \times n}} = \underbrace{\Jacobian{\vect{g}}{\vect{W}}}_{\tiny{d \times d \times n}}$
+\end{itemize}
+}
+\end{frame}
+
+\begin{frame}{Novas operações: ativação}
+\large{
+
+$\vect{x}\in \mathbb{R}^{n}$, $\vect{W} \in \mathbb{R}^{d\times n}$, $\vect{b}\in \mathbb{R}^{d}$, $h:\mathbb{R} \rightarrow \mathbb{R}$
+
+\vspace{0.1 cm}
+
+\begin{equation*}
+\vect{u} = h(\vect{W}\vect{x} + \vect{b})
+\end{equation*}
+
+\vspace{0.1 cm}
+
+$\vect{u} = \vect{f}(\vect{g}(\vect{W},\vect{x},\vect{b})) = h(\vect{g}(\vect{W}, \vect{x},\vect{b}))$
+
+\vspace{0.1 cm}
+
+$\vect{g}(\vect{W}, \vect{x}, \vect{b}) = \vect{W}\vect{x} + \vect{b}$
+
+\vspace{0.1 cm}
+
+\begin{align*}
+\bullet \; \; \Jacobian{\vect{u}}{\vect{W}} &= \Jacobian{\vect{f}}{\vect{g}}\Jacobian{\vect{g}}{\vect{W}}\\
+&\\
+&= \underbrace{diag(h^{\prime}(\vect{W}\vect{x} + \vect{b}))}_{\tiny{d \times d}} \underbrace{\Jacobian{\vect{g}}{\vect{W}}}_{\tiny{d \times d \times n}}\\
+\end{align*}
+}
+\end{frame}
+
+
+\begin{frame}{Novas operações: ativação}
+\large{
+\begin{equation*}
+\underbrace{\Jacobian{\vect{u}}{\vect{W}}}_{\tiny{d \times d \times n}} \text{ tal que }  \Jacobian{\vect{u}}{\vect{W}}_{i,j,k} = \begin{cases}
+0, \text{ se } i \neq j\\
+h^{\prime}(\vect{W}\vect{x} + \vect{b})_i x_k, \text{ se } i = j\\
+\end{cases}
+\end{equation*}
+
+\begin{align*}
+\bullet \; \; \Jacobian{\vect{u}}{\vect{b}} &= \Jacobian{\vect{f}}{\vect{g}}\Jacobian{\vect{g}}{\vect{b}}\\
+&\\
+&= \underbrace{diag(h^{\prime}(\vect{W}\vect{x} + \vect{b}))}_{\tiny{d \times d}} \underbrace{\vect{I}}_{\tiny{d \times d}}\\
+&\\
+&= \underbrace{diag(h^{\prime}(\vect{W}\vect{x} + \vect{b}))}_{\tiny{d \times d}}\\
+\end{align*}
+}
+\end{frame}
+
+
+\begin{frame}{Novas operações: ativação}
+\large{
+\vspace{0.5 cm}
+
+\begin{align*}
+\bullet \; \; \Jacobian{\vect{u}}{\vect{x}} &= \Jacobian{\vect{f}}{\vect{g}}\Jacobian{\vect{g}}{\vect{x}}\\
+&\\
+&= \underbrace{diag(h^{\prime}(\vect{W}\vect{x} + \vect{b}))}_{\tiny{d \times d}} \underbrace{\vect{W}}_{\tiny{d \times n}}\\
+&\\
+&= \begin{bmatrix}h^{\prime}(\vect{W}\vect{x} + \vect{b})_1 w_{1,1}& \dots & h^{\prime}(\vect{W}\vect{x} + \vect{b})_1 w_{1,n}\\ \vdots & \ddots & \vdots\\ h^{\prime}(\vect{W}\vect{x} + \vect{b})_d w_{d,1}& \dots & h^{\prime}(\vect{W}\vect{x} + \vect{b})_d w_{d,n} \end{bmatrix}_{\tiny{d \times n}}\\
+\end{align*}
+}
+\end{frame}
+
+
+\begin{frame}{Novas operações: softmax}
+\large{
+$\vect{x}\in \mathbb{R}^{n}$
+
+\begin{equation*}
+\vect{u} = \vect{s}(\vect{x})
+\end{equation*}
+
+
+$\vect{f}(\vect{x}) = exp(\vect{x})$
+
+$g(\vect{f}) = sum(\vect{f})$
+
+$h(g) = g^{-1}$
+
+$\vect{t}(\vect{f},h) = \vect{f}h$
+
+$\vect{u} = \vect{s}(\vect{x}) = \vect{t}(\vect{f},h)$
+
+\begin{align*}
+\bullet \;\; \Jacobian{\vect{u}}{\vect{x}} &= \Jacobian{\vect{t}}{\vect{f}}\Jacobian{\vect{f}}{\vect{x}}  + \Jacobian{\vect{t}}{h}\Jacobian{h}{\vect{x}}\\
+\end{align*}
+}
+\end{frame}
+
+\begin{frame}{Novas operações: softmax}
+\large{
+\begin{align*}
+\Jacobian{\vect{t}}{\vect{f}}\Jacobian{\vect{f}}{\vect{x}} & = \Jacobian{\vect{t}}{\vect{f}}\Jacobian{\vect{f}}{\vect{x}}\\
+&\\
+&= \underbrace{diag(\vect{1}h)}_{\tiny{n \times n}} \underbrace{diag(\vect{f})}_{\tiny{n \times n}}\\
+&\\
+&= \underbrace{diag(\vect{f}h)}_{\tiny{n \times n}}\\
+&\\
+&= \underbrace{diag(\vect{s}(\vect{x}))}_{\tiny{n \times n}}\\
+\end{align*}
+}
+\end{frame}
+
+
+\begin{frame}{Novas operações: softmax}
+
+\begin{align*}
+\Jacobian{\vect{t}}{h}\Jacobian{h}{\vect{x}} & = \Jacobian{\vect{t}}{h}\Jacobian{h}{g}\Jacobian{g}{\vect{f}}\Jacobian{\vect{f}}{\vect{x}}\\
+&\\
+&= (\underbrace{\vect{f}}_{\tiny{n \times 1}} \underbrace{-\frac{1}{g^{2}}}_{\tiny{1 \times 1}}) \underbrace{\vect{1}^{\top}}_{\tiny{1 \times n}} \underbrace{diag(\vect{f})}_{\tiny{n \times n}}\\
+&\\
+&= \underbrace{(\vect{f} -\frac{1}{g^{2}})}_{\tiny{n \times 1}} \underbrace{\vect{f}^{\top}}_{\tiny{1 \times n}} \\
+&\\
+&= \begin{bmatrix} -\vect{s}_{1}^{2} & -\vect{s}_1\vect{s}_2 & \dots & -\vect{s}_1\vect{s}_n\\\vdots & \vdots & \ddots & \vdots\\ -\vect{s}_1\vect{s}_n & -\vect{s}_n\vect{s}_2 & \dots & -\vect{s}_{n}^{2}\end{bmatrix}_{\tiny{n \times n}}\\
+\end{align*}
+
+\end{frame}
+
+
+\begin{frame}{Novas operações: softmax}
+\large{
+\begin{align*}
+\Jacobian{\vect{u}}{\vect{x}} &= diag(\vect{s}(\vect{x}))  + \Jacobian{\vect{t}}{h}\Jacobian{h}{\vect{x}}\\
+&\\
+&= \begin{bmatrix} \vect{s}_{1}(1 - \vect{s}_{1}) & -\vect{s}_1\vect{s}_2 & \dots & -\vect{s}_1\vect{s}_n\\
+-\vect{s}_2\vect{s}_1 & \vect{s}_{2}(1 - \vect{s}_{2}) & \dots & -\vect{s}_2\vect{s}_n\\
+\vdots & \vdots & \ddots & \vdots\\ 
+-\vect{s}_n\vect{s}_1 & -\vect{s}_n\vect{s}_2 & \dots & \vect{s}_{n}(1 - \vect{s}_{n})\end{bmatrix}_{\tiny{n \times n}}\\
+\end{align*}
+}
+\end{frame}
+
+
+\begin{frame}{Novas operações: softmax com entropia cruzada}
+
+$\vect{x}, \vect{y} \in \mathbb{R}^{n}$
+
+\vspace{0.1 cm}
+
+\begin{equation*}
+u = L_{SCE}(\vect{x}, \vect{y})
+\end{equation*}
+
+$\vect{\hat{y}}(\vect{x}) = \vect{s}(\vect{x})$
+
+$\vect{f}(\vect{\hat{y}}) = log(\vect{\hat{y}})$
+
+$\vect{g}(\vect{f}) = \vect{y} \odot \vect{f}$
+
+$h(\vect{g}) = sum(\vect{g})$
+
+$t(h) = -h$
+
+
+$u = L_{SCE}(\vect{x}, \vect{y}) = t$
+
+\vspace{0.1 cm}
+\begin{align*}
+\bullet \; \; \Jacobian{u}{\vect{x}} &= \Jacobian{t}{h} \Jacobian{h}{\vect{g}}\Jacobian{\vect{g}}{\vect{f}}\Jacobian{\vect{f}}{\vect{\hat{y}}}\Jacobian{\vect{\hat{y}}}{\vect{x}}\\
+\end{align*}
+
+\end{frame}
+
+\begin{frame}{Novas operações: softmax com entropia cruzada}
+\begin{align*}
+\Jacobian{u}{\vect{x}} &= \Jacobian{t}{h} \Jacobian{h}{\vect{g}}\Jacobian{\vect{g}}{\vect{f}}\Jacobian{\vect{f}}{\vect{\hat{y}}}\Jacobian{\vect{\hat{y}}}{\vect{x}}\\
+&\\
+&= \underbrace{-1}_{\tiny{1 \times 1}} \underbrace{\vect{1}^{\top}}_{\tiny{1 \times n}} \underbrace{diag(\vect{y})}_{\tiny{n \times n}} \underbrace{diag(\vect{\hat{y}}^{-1})}_{\tiny{n \times n}} \underbrace{\Jacobian{\vect{\hat{y}}}{\vect{x}}}_{\tiny{n \times n}}\\
+&\\
+&= \underbrace{-\vect{1}^{\top}}_{\tiny{1 \times n}} \underbrace{diag(\frac{\vect{y}}{\vect{\hat{y}}})}_{\tiny{n \times n}}\underbrace{\Jacobian{\vect{\hat{y}}}{\vect{x}}}_{\tiny{n \times n}}\\
+&\\
+&=  \underbrace{-\frac{\vect{y}}{\vect{\hat{y}}}^{\top}}_{\tiny{1 \times n}} \underbrace{\Jacobian{\vect{\hat{y}}}{\vect{x}}}_{\tiny{n \times n}}\\
+\end{align*}
+
+\end{frame}
+
+\begin{frame}{Novas operações: softmax com entropia cruzada}
+
+\begin{align*}
+\Jacobian{u}{\vect{x}_{i}} &= -\frac{\vect{y}}{\vect{\hat{y}}}^{\top} \Jacobian{\vect{\hat{y}}}{\vect{x}}_{:, i}\\
+&\\
+&= \frac{y_{1}}{\hat{y}_{1}}\hat{y}_{i}\hat{y}_{1} + \frac{y_{2}}{\hat{y}_{2}}\hat{y}_{i}\hat{y}_{2} + \dots - \frac{y_{i}}{\hat{y}_{i}}\hat{y}_{i}(1 - \hat{y}_{i}) + \dots +  \frac{y_{n}}{\hat{y}_{n}}\hat{y}_{i}\hat{y}_{n} \\
+&\\
+&= y_{1}\hat{y}_{i} + y_{2}\hat{y}_{i} + \dots + (y_{i}\hat{y}_{i} - y_{i}) + \dots +  y_{n}\hat{y}_{i} \\
+&\\
+&=  \sum_{j=1}^{n} y_{j}\hat{y}_{i} - y_{i}\\
+&=  \hat{y}_{i} - y_{i} \text{ (quando } sum(\vect{y})=1 \text{)}
+\end{align*}
+
+Assim, daqui em diante $\Jacobian{u}{\vect{x}} = (\vect{\hat{y}} - \vect{y})^{\top}$
+\end{frame}
+
+\begin{frame}{Exemplo 2: Regressão logística}
+\large{
+
+$\vect{x}\in \mathbb{R}^{n}$, $\vect{W} \in \mathbb{R}^{d\times n}$ e $\vect{b}, \vect{y} \in \mathbb{R}^{d}$
+
+\vspace{0.1 cm}
+
+\begin{equation*}
+L = L_{SCE}(\vect{W}\vect{x} + \vect{b}, \vect{y})
+\end{equation*}
+
+\vspace{0.1 cm}
+$\vect{u} = \vect{W}\vect{x} + \vect{b}$
+
+\vspace{0.1 cm}
+$\vect{\hat{y}} = \vect{s}(\vect{u})$
+
+\vspace{0.5 cm}
+
+ $\bullet \; \; \Jacobian{L}{\vect{b}} = \Jacobian{L_{SCE}}{\vect{u}}\Jacobian{\vect{u}}{\vect{b}} = \underbrace{(\vect{\hat{y}} - \vect{y})^{\top}}_{\tiny{1 \times d}} \underbrace{\vect{I}}_{\tiny{d \times d}} = \underbrace{(\vect{\hat{y}} - \vect{y})^{\top}}_{\tiny{1 \times d}}$
+}
+\end{frame}
+
+\begin{frame}{Exemplo 2: Regressão logística}
+\large{
+
+\begin{align*}
+\bullet \; \; \Jacobian{L}{\vect{W}}&= \Jacobian{L_{SCE}}{\vect{u}}\Jacobian{\vect{u}}{\vect{W}}\\
+&\\
+&= \underbrace{(\vect{\hat{y}} - \vect{y})^{\top}}_{\tiny{1 \times d}}\underbrace{\Jacobian{\vect{u}}{\vect{W}}}_{\tiny{d \times d \times n}}\\
+&\\
+&= \begin{bmatrix} (\hat{y}_1 - y_1)x_1 & (\hat{y}_1 - y_1)x_2 & \dots & (\hat{y}_1 - y_1)x_n\\
+(\hat{y}_2 - y_2)x_1 & (\hat{y}_2 - y_2)x_2 & \dots & (\hat{y}_2 - y_2)x_n\\
+\vdots & \vdots & \ddots & \vdots\\ 
+(\hat{y}_d - y_d)x_1 & (\hat{y}_d - y_d)x_2 & \dots & (\hat{y}_d - y_d)x_n\\\end{bmatrix}_{\tiny{1 \times d \times n}}\\
+\end{align*}
+}
+\end{frame}
+
+
+\begin{frame}{Exemplo 2: Regressão logística}
+\Large{
+
+\begin{align*}
+\bullet \; \; \Jacobian{L}{\vect{x}}&= \Jacobian{L_{SCE}}{\vect{u}}\Jacobian{\vect{u}}{\vect{x}}\\
+&\\
+&= \underbrace{(\vect{\hat{y}} - \vect{y})^{\top}}_{\tiny{1 \times d}}\underbrace{\vect{W}}_{\tiny{d \times n}}\\
+&\\
+&= \begin{bmatrix} \sum_{j=1}^{d} (\hat{y}_j - y_j)w_{j,1}, & \dots , & \sum_{j=1}^{d} (\hat{y}_j - y_j)w_{j,1}\\\end{bmatrix}_{\tiny{1 \times n}}\\
+\end{align*}
+}
+\end{frame}
+
+
+
+
+\begin{frame}{Exemplo 3: Rede neural com uma camada escondida}
+\large{
+
+$\vect{x}\in \mathbb{R}^{n}$, $\vect{W}^{(1)} \in \mathbb{R}^{k\times n}$ e $\vect{b}^{(1)} \in \mathbb{R}^{k}$, $\vect{W}^{(2)} \in \mathbb{R}^{d\times k}$  $\vect{b}^{(2)} \in \mathbb{R}^{d}$,  $\vect{y} \in \mathbb{R}^{d}$
+
+\vspace{0.1 cm}
+
+\begin{equation*}
+\vect{h}^{(1)} = g(\vect{W}^{(1)}\vect{x} + \vect{b}^{(1)})
+\end{equation*}
+
+\begin{equation*}
+\vect{h}^{(2)} = \vect{W}^{(2)}\vect{h}^{(1)} + \vect{b}^{(2)}
+\end{equation*}
+
+\begin{equation*}
+\vect{\hat{y}} = \vect{s}(\vect{h}^{(2)})
+\end{equation*}
+
+\begin{equation*}
+L = L_{SCE}(\vect{h}^{(2)}, \vect{y})
+\end{equation*}
+}
+\end{frame}
+
+\begin{frame}{Exemplo 3: Rede neural com uma camada escondida}
+\large{
+
+
+\begin{equation*}
+\vect{\delta} \leftarrow \Jacobian{L_{SCE}}{\vect{h}^{(2)}}
+\end{equation*}
+
+\vspace{0.5 cm}
+ $\bullet \; \; \Jacobian{L}{\vect{b}^{(2)}} = \Jacobian{L_{SCE}}{\vect{h}^{(2)}}\Jacobian{\vect{h}^{(2)}}{\vect{b}^{(2)}} = \vect{\delta} \Jacobian{\vect{h}^{(2)}}{\vect{b}^{(2)}} =  \underbrace{(\vect{\hat{y}} - \vect{y})}^{\top}_{\tiny{1 \times d}} \underbrace{\vect{I}}_{\tiny{d \times d}} = \underbrace{(\vect{\hat{y}} - \vect{y})^{\top}}_{\tiny{1 \times d}}$
+}
+\end{frame}
+
+
+\begin{frame}{Exemplo 3: Rede neural com uma camada escondida}
+\large{
+
+\begin{align*}
+\bullet \; \; \Jacobian{L}{\vect{W}^{(2)}}&= \Jacobian{L_{SCE}}{\vect{h}^{(2)}}\Jacobian{\vect{h}^{(2)}}{\vect{W}^{(2)}}\\
+&\\
+&= \underbrace{\vect{\delta}}_{\tiny{1 \times d}}\underbrace{\Jacobian{\vect{h}^{(2)}}{\vect{W}^{(2)}}}_{\tiny{d \times d \times k}}\\
+&\\
+&= \begin{bmatrix} (\hat{y}_1 - y_1)h^{1}_1 & (\hat{y}_1 - y_1)h^{1}_2 & \dots & (\hat{y}_1 - y_1)h^{1}_k\\
+(\hat{y}_2 - y_2)h^{1}_1 & (\hat{y}_2 - y_2)h^{1}_2 & \dots & (\hat{y}_2 - y_2)h^{1}_k\\
+\vdots & \vdots & \ddots & \vdots\\ 
+(\hat{y}_d - y_d)h^{1}_1 & (\hat{y}_d - y_d)h^{1}_2 & \dots & (\hat{y}_d - y_d)h^{1}_k\\\end{bmatrix}_{\tiny{1 \times d \times k}}\\
+\end{align*}
+}
+\end{frame}
+
+\begin{frame}{Exemplo 3: Rede neural com uma camada escondida}
+\Large{
+
+\begin{align*}
+\vect{\delta}&\leftarrow \Jacobian{L_{SCE}}{\vect{h}^{(2)}}\Jacobian{\vect{h}^{(2)}}{\vect{h}^{(1)}}\\
+&\\
+&= \vect{\delta}\Jacobian{\vect{h}^{(2)}}{\vect{h}^{(1)}}\\
+&\\
+&= (\vect{\hat{y}} - \vect{y})^{\top} \vect{W}^{(2)}\\
+\end{align*}
+}
+\end{frame}
+
+\begin{frame}{Exemplo 3: Rede neural com uma camada escondida}
+\Large{
+
+\begin{align*}
+\bullet \; \; \Jacobian{L}{\vect{b}^{(1)}}&= \Jacobian{L_{SCE}}{\vect{h}^{(2)}}\Jacobian{\vect{h}^{(2)}}{\vect{h}^{(1)}}\Jacobian{\vect{h}^{(1)}}{\vect{b}^{(1)}}\\
+&\\
+&= \vect{\delta}\Jacobian{\vect{h}^{(1)}}{\vect{b}^{(1)}}\\
+&\\
+&= \underbrace{(\vect{\hat{y}} - \vect{y})^{\top}}_{\tiny{1 \times d}} \underbrace{\vect{W}^{(2)}}_{\tiny{d \times k}} \underbrace{diag(g^{\prime}(\vect{W}^{(1)}\vect{x} + \vect{b}^{(1)}))}_{\tiny{k \times k}}\\
+\end{align*}
+}
+\end{frame}
+
+\begin{frame}{Exemplo 3: Rede neural com uma camada escondida}
+\Large{
+
+\begin{align*}
+\bullet \; \; \Jacobian{L}{\vect{W}^{(1)}}&= \Jacobian{L_{SCE}}{\vect{h}^{(2)}}\Jacobian{\vect{h}^{(2)}}{\vect{h}^{(1)}}\Jacobian{\vect{h}^{(1)}}{\vect{W}^{(1)}}\\
+&\\
+&= \vect{\delta}\Jacobian{\vect{h}^{(1)}}{\vect{W}^{(1)}}\\
+&\\
+&= \underbrace{(\vect{\hat{y}} - \vect{y})^{\top}}_{\tiny{1 \times d}} \underbrace{\vect{W}^{(2)}}_{\tiny{d \times k}} \underbrace{\Jacobian{\vect{h}^{(1)}}{\vect{W}^{(1)}}}_{\tiny{k \times k \times n}}\\
+\end{align*}
+}
+\end{frame}
+
+\begin{frame}{Algoritmo de back-propagation (para redes neurais)}
+\begin{algorithm}[H]
+\begin{algorithmic}[1]
+\STATE \textbf{Require:} $K$, network depth
+\STATE \textbf{Require:} $\vect{x}$, the input to process
+\STATE \textbf{Require:} $\vect{y}$, the target output
+\STATE \textbf{Require:} $L( \cdot ,  \cdot)$, output with cost function
+\STATE \textbf{Require:} $\vect{h}^{(i)}$, activation function for the i-th layer with weights $\vect{W}^{(i)}$ and bias $\vect{b}^{(i)}$
+\STATE $\vect{\delta} \leftarrow \Jacobian{out}{\vect{h}^{(K)}}$
+\FOR{$i=K$ down to $1$}
+\STATE $\Jacobian{L}{\vect{b}^{(i)}} \leftarrow  \vect{\delta}\Jacobian{\vect{h}^{(i)}}{\vect{b}^{(i)}}$
+\STATE $\Jacobian{L}{\vect{W}^{(i)}} \leftarrow  \vect{\delta}\Jacobian{\vect{h}^{(i)}}{\vect{W}^{(i)}}$
+\STATE $\vect{\delta} \leftarrow \vect{\delta}\Jacobian{\vect{h}^{(i)}}{\vect{h}^{(i-1)}}$
+\ENDFOR
+\end{algorithmic}
+\caption{Back-propagation for a deep neural network}
+\label{alg:seq}
+\end{algorithm}
+\end{frame}
+
+
+\begin{frame}[allowframebreaks]{Referências}
+
+  \bibliography{my_references}
+  \bibliographystyle{abbrv}
+
+\end{frame}
+
+
+
+
+\end{document}
