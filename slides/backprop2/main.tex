@@ -718,9 +718,10 @@ L = L_{SCE}(\vect{h}^{(2)}, \vect{y})
 \STATE \textbf{Require:} $K$, network depth
 \STATE \textbf{Require:} $\vect{x}$, the input to process
 \STATE \textbf{Require:} $\vect{y}$, the target output
-\STATE \textbf{Require:} $L( \cdot ,  \cdot)$, output with cost function
-\STATE \textbf{Require:} $\vect{h}^{(i)}$, activation function for the i-th layer with weights $\vect{W}^{(i)}$ and bias $\vect{b}^{(i)}$
-\STATE $\vect{\delta} \leftarrow \Jacobian{out}{\vect{h}^{(K)}}$
+\STATE \textbf{Require:} $L_{out}( \cdot ,  \cdot)$, output with cost function
+\STATE \textbf{Require:} $\vect{h}^{(i)} = g^{(i)}(\vect{W}^{(i)}\vect{h}^{(i-1)} + \vect{b}^{(i)})$, $i \in \{1, \dots, K\}$, activation function for the i-th layer where $\vect{h}^{(0)} = \vect{x}$
+\STATE $L \leftarrow L_{out}(\vect{h}^{(K)}, \vect{y})$
+\STATE $\vect{\delta} \leftarrow \Jacobian{L}{\vect{h}^{(K)}}$
 \FOR{$i=K$ down to $1$}
 \STATE $\Jacobian{L}{\vect{b}^{(i)}} \leftarrow  \vect{\delta}\Jacobian{\vect{h}^{(i)}}{\vect{b}^{(i)}}$
 \STATE $\Jacobian{L}{\vect{W}^{(i)}} \leftarrow  \vect{\delta}\Jacobian{\vect{h}^{(i)}}{\vect{W}^{(i)}}$
