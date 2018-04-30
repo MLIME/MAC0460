@@ -719,7 +719,7 @@ L = L_{SCE}(\vect{h}^{(2)}, \vect{y})
 \STATE \textbf{Require:} $\vect{x}$, the input to process
 \STATE \textbf{Require:} $\vect{y}$, the target output
 \STATE \textbf{Require:} $L_{out}( \cdot ,  \cdot)$, output with cost function
-\STATE \textbf{Require:} $\vect{h}^{(i)} = g^{(i)}(\vect{W}^{(i)}\vect{h}^{(i-1)} + \vect{b}^{(i)})$, $i \in \{1, \dots, K\}$, activation function for the i-th layer where $\vect{h}^{(0)} = \vect{x}$
+\STATE \textbf{Require:} $\vect{h}^{(i)} = g^{(i)}(\vect{W}^{(i)}\vect{h}^{(i-1)} + \vect{b}^{(i)})$, $i \in \{1, \dots, K\}$, activation function for the i-th layer where $\vect{h}^{(0)} = \vect{x}$ and $g^{(K)}$ is the identity function. 
 \STATE $L \leftarrow L_{out}(\vect{h}^{(K)}, \vect{y})$
 \STATE $\vect{\delta} \leftarrow \Jacobian{L}{\vect{h}^{(K)}}$
 \FOR{$i=K$ down to $1$}
