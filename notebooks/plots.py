@@ -180,5 +180,129 @@ def simple_step_plot(ylist,
            loc='upper right')
     plt.show()
 
-    
+def plot9images(images, cls_true, img_shape, cls_pred=None, lspace=0.3):
+    """
+    Function to show 9 images with their respective classes.
+    If cls_pred is an array, you can see the image and the prediction.
+
+    :param images: images
+    :type images: np array
+    :param cls_true: true classes
+    :type cls_true: np array
+    :param img_shape: image shape
+    :type img_shape: tuple
+    :param cls_pred: model's prediction 
+    :type cls_pred: None or np array
+    :param lspace: space between images 
+    :type lspace: float
+    """
+    assert len(images) == len(cls_true) == 9
+    if cls_pred is None:
+        title = "Some images with labels"
+    else:
+        title = "Some images with predictions and labels"
+    fig, axes = plt.subplots(3, 3)
+    fig.subplots_adjust(hspace=lspace, wspace=0.3)
+    st = fig.suptitle(title, fontsize=24, fontweight='bold')
+
+    for i, ax in enumerate(axes.flat):
+        ax.imshow(images[i].reshape(img_shape), cmap=None)
+        if cls_pred is None:
+            xlabel = "Label: {0}".format(cls_true[i])
+        else:
+            xlabel = "Label: {0}\nPred: {1}".format(cls_true[i], cls_pred[i])
+        ax.set_xlabel(xlabel)
+        ax.set_xticks([])
+        ax.set_yticks([])
+    plt.tight_layout()
+    st.set_y(1.05)
+    fig.subplots_adjust(top=0.85)
+    plt.show()
+
+
+def plot_confusion_matrix(truth,
+                          predictions,
+                          classes,
+                          normalize=False,
+                          save=False,
+                          cmap=plt.cm.Oranges,
+                          path="confusion_matrix.png"):
+    """
+    This function plots the confusion matrix.
+    Normalization can be applied by setting `normalize=True`.
+    'cmap' controls the color plot. colors:
+    https://matplotlib.org/1.3.1/examples/color/colormaps_reference.html
+    :param truth: true labels
+    :type truth: np array
+    :param predictions: model predictions
+    :type predictions: np array
+    :param classes: list of classes in order
+    :type classes: list
+    :param normalize: param to normalize cm matrix
+    :type normalize: bool
+    :param save: param to save cm plot
+    :type save: bool
+    :param cmap: plt color map
+    :type cmap: plt.cm
+    :param path: path to save image
+    :type path: str
+    """
+    acc = np.array(truth) == np.array(predictions)
+    size = float(acc.shape[0])
+    acc = np.sum(acc.astype("int32")) / size
+    title = "Confusion matrix of {0} examples\n accuracy = {1:.6f}".format(int(size),  # noqa
+                                                                           acc)
+    cm = confusion_matrix(truth, predictions)
+    if normalize:
+        cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
+    plt.figure(figsize=(9, 9))
+    plt.imshow(cm, interpolation='nearest', cmap=cmap)
+    plt.title(title, fontsize=24, fontweight='bold')
+    plt.colorbar()
+    tick_marks = np.arange(len(classes))
+    plt.xticks(tick_marks, classes, rotation=45)
+    plt.yticks(tick_marks, classes)
+
+    fmt = '.2f' if normalize else 'd'
+    thresh = cm.max() / 2.
+    for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
+        plt.text(j, i, format(cm[i, j], fmt),
+                 horizontalalignment="center",
+                 color="white" if cm[i, j] > thresh else "black")
+
+    plt.tight_layout()
+    plt.ylabel('True label', fontweight='bold')
+    plt.xlabel('Predicted label', fontweight='bold')
+    plt.show()
+    if save:
+        plt.savefig(path)
+
+def plot_histogram_from_labels(labels, labels_legend, comment):
+    """
+    Plot dataset histogram
+    :param label_path: array of labels
+    :type label_path: np.array
+    :param labels_legend: list with the name of labels
+    :type labels_legend: list
+    :param comment: comment to dataset to be printed on title
+    :type comment: str
+    """
+
+    data_hist = plt.hist(labels,
+                         bins=np.arange(len(labels_legend) + 1) - 0.5,
+                         edgecolor='black')
+    axes = plt.gca()
+    axes.set_ylim([0, len(labels)])
+
+    plt.title("Histogram of {} data points ({})".format(len(labels), comment))
+    plt.xticks(np.arange(len(labels_legend) + 1), labels_legend)
+    plt.xlabel("Label")
+    plt.ylabel("Frequency")
+
+    for i in range(len(labels_legend)):
+        plt.text(data_hist[1][i] + 0.25,
+                 data_hist[0][i] + (data_hist[0][i] * 0.01),
+                 str(int(data_hist[0][i])))
+    plt.show()
+    plt.close()
 
