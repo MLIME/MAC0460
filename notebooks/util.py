@@ -3,6 +3,19 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 
 
+def add_feature_ones(X):
+    """
+    Returns the ndarray 'X' with the extra
+    feature column containing only 1s.
+
+    :param X: input array
+    :type X: np.ndarray(shape=(N, d))
+    :return: output array
+    :rtype: np.ndarray(shape=(N, d+1))
+    """
+    return np.concatenate((np.ones((X.shape[0], 1)), X), axis=1)
+
+
 def get_housing_prices_data(N, verbose=True):
     """
     Generates artificial linear data,
