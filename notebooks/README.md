@@ -2,7 +2,7 @@
 
 ## Organização
 
-Os notebooks aqui servem para fixar os conceitos e métodos apresentados em aula. Eles foram pensados na seguinte ordem:
+Os notebooks aqui servem para fixar os conceitos, métodos e algoritmos apresentados em aula. Eles foram pensados na seguinte ordem:
 
 * regressao_linear1
 * regressao_linear2
