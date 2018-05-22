@@ -32,10 +32,6 @@ $ cd notebooks
 $ jupyter notebook
 ```
 
-### Guia de atividades
-Cada notebook é auto explicativo. Os alunos devem rodar cada notebook para entender a questão que está sendo tratada, os exercícios estão claramente indicados no código.
-
-
 ### Referências
 
 Vale a pena se familiarizar com cada uma das bibliotecas que vão ser usadas:
