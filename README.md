@@ -10,7 +10,7 @@ Maiores informações podem ser encontradas [aqui](https://uspdigital.usp.br/jup
 Na pasta **notebooks** estão os exercícios práticos dados no curso, na pasta **slides** estão os materiais didáticos de algumas aulas. 
 
 ### Instalação(Ubuntu / Debian)
-Para instalar o jupyter basta rodar:
+Para instalar o [Jupyter Notebook](http://jupyter.org/) basta rodar:
 
 ```
 $ sudo apt install python3-pip python3-tk
@@ -23,7 +23,7 @@ Vamos usar uma série de bibliotecas de Python ao longo da disciplina, para inst
 ```
 $ pip3 install -r requirements.txt
 ```
-Vamos usar também a biblioteca de deep learning [PyTorch](https://pytorch.org/), visite o site dessa biblioteca para fazer a instalação.
+Também vamos usar a biblioteca de deep learning [PyTorch](https://pytorch.org/), visite o site dessa biblioteca para fazer a instalação.
 
 Para acessar os notebooks basta rodar:
 
