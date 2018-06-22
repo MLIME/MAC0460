@@ -1,15 +1,16 @@
 from torch.utils.data import DataLoader
-
+import torch
 
 
 class GentleLoader:
     def __init__(self, dataset, batch_size, shuffle):
-        self.dataLoader = DataLoader(dataset=train_dataset,
+        self.dataLoader = DataLoader(dataset=dataset,
                                      batch_size=batch_size,
                                      shuffle=True)
+
     def __iter__(self):
         return ((batch_X.type(torch.float), batch_y.type(torch.long))
-                 for (batch_X, batch_y) in self.dataLoader)
+                for (batch_X, batch_y) in self.dataLoader)
 
 
 class DataHolderGentle():
