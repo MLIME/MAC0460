@@ -10,6 +10,14 @@ Um pedaço da parte teórica do curso foi baseado no curso [**Learning from Data
 Na pasta **notebooks** estão os exercícios práticos dados no curso, na pasta **slides** estão os materiais didáticos de algumas aulas.
 
 ### Instalação (Ubuntu / Debian)
+Para quem desejar, recomendamos a utilização de ambientes virtuais.
+[Instale os pacotes necessários](http://railslide.io/virtualenvwrapper-python3.html) e crie um novo ambiente, ex:
+
+```
+$ mkvirtualenv mac0460
+$ workon mac0460
+```
+
 Para instalar o [Jupyter Notebook](http://jupyter.org/) basta rodar:
 
 ```
